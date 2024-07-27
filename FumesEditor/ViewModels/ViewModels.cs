@@ -12,9 +12,4 @@ namespace FumesEditor.ViewModels
       PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
   }
-
-  public class SkinsViewModel : BaseViewModel
-  {
-    // Add properties and methods for Skins tab
-  }
 }

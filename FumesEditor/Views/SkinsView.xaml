@@ -1,8 +1,78 @@
 ﻿<UserControl x:Class="FumesEditor.Views.SkinsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:FumesEditor.ViewModels"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=viewModels:SkinsViewModel}">
     <Grid>
-        <TextBlock Text="Custom Skins" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <!-- Add more controls for Skins tab -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <ListBox Grid.Column="0" 
+                 ItemsSource="{Binding CustomSkins}" 
+                 SelectedItem="{Binding SelectedSkin}"
+                 DisplayMemberPath="Label"
+                 Margin="5"/>
+
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="10">
+                <TextBlock Text="Selected Skin Details" 
+                           FontWeight="Bold" 
+                           FontSize="16"
+                           Margin="0,0,0,10"/>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="ID:" Margin="0,0,10,5"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SelectedSkin.Id, Mode=TwoWay}" Margin="0,0,0,5"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Label:" Margin="0,0,10,5"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedSkin.Label, Mode=TwoWay}" Margin="0,0,0,5"/>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Body:" Margin="0,0,10,5"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SelectedSkin.Body, Mode=TwoWay}" Margin="0,0,0,5"/>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Version:" Margin="0,0,10,5"/>
+                    <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding SelectedSkin.Version, Mode=TwoWay}" Margin="0,0,0,5"/>
+
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Body Color:" Margin="0,0,10,5"/>
+                    <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+                        <TextBox Text="{Binding SelectedSkin.BodyColor.R, Mode=TwoWay}" Width="50" Margin="0,0,5,0"/>
+                        <TextBox Text="{Binding SelectedSkin.BodyColor.G, Mode=TwoWay}" Width="50" Margin="0,0,5,0"/>
+                        <TextBox Text="{Binding SelectedSkin.BodyColor.B, Mode=TwoWay}" Width="50" Margin="0,0,5,0"/>
+                        <TextBox Text="{Binding SelectedSkin.BodyColor.A, Mode=TwoWay}" Width="50"/>
+                    </StackPanel>
+
+                    <TextBlock Grid.Row="5" Grid.Column="0" Text="Lamps Color:" Margin="0,0,10,5"/>
+                    <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal">
+                        <TextBox Text="{Binding SelectedSkin.LampsColor.R, Mode=TwoWay}" Width="50" Margin="0,0,5,0"/>
+                        <TextBox Text="{Binding SelectedSkin.LampsColor.G, Mode=TwoWay}" Width="50" Margin="0,0,5,0"/>
+                        <TextBox Text="{Binding SelectedSkin.LampsColor.B, Mode=TwoWay}" Width="50" Margin="0,0,5,0"/>
+                        <TextBox Text="{Binding SelectedSkin.LampsColor.A, Mode=TwoWay}" Width="50"/>
+                    </StackPanel>
+                </Grid>
+
+                <Button Content="Save Changes" 
+                        Command="{Binding SaveChangesCommand}"
+                        Margin="0,10,0,0"
+                        Padding="10,5"/>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>

@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using System.Linq;
 using FumesEditor.Models;
+using FumesEditor.Commands;
 
 namespace FumesEditor.ViewModels
 {
@@ -90,7 +91,7 @@ namespace FumesEditor.ViewModels
     private bool CanMoveToUnlocked(object parameter) => !string.IsNullOrEmpty(SelectedLockedItem);
     private bool CanMoveToLocked(object parameter) => !string.IsNullOrEmpty(SelectedUnlockedItem);
 
-    private void MoveToUnlocked(object parameter)
+    private void MoveToUnlocked()
     {
       if (SelectedLockedItem != null && !UnlockedItems.Contains(SelectedLockedItem))
       {
@@ -101,7 +102,7 @@ namespace FumesEditor.ViewModels
       }
     }
 
-    private void MoveToLocked(object parameter)
+    private void MoveToLocked()
     {
       if (SelectedUnlockedItem != null)
       {
@@ -111,7 +112,11 @@ namespace FumesEditor.ViewModels
       }
     }
 
-    private void UnlockAll(object parameter)
+    private bool CanMoveToUnlocked() => !string.IsNullOrEmpty(SelectedLockedItem);
+    private bool CanMoveToLocked() => !string.IsNullOrEmpty(SelectedUnlockedItem);
+
+
+    private void UnlockAll()
     {
       foreach (var item in AllItems)
       {
@@ -125,7 +130,7 @@ namespace FumesEditor.ViewModels
       UpdateSaveModel();
     }
 
-    private void LockAll(object parameter)
+    private void LockAll()
     {
       UnlockedItems.Clear();
       OnPropertyChanged(nameof(LockedItems));
@@ -156,26 +161,6 @@ namespace FumesEditor.ViewModels
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
       PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-  }
-
-  public class RelayCommand : ICommand
-  {
-    private readonly Action<object> _execute;
-    private readonly Func<object, bool> _canExecute;
-
-    public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
-    {
-      _execute = execute ?? throw new ArgumentNullException(nameof(execute));
-      _canExecute = canExecute;
-    }
-
-    public bool CanExecute(object parameter) => _canExecute == null || _canExecute(parameter);
-    public void Execute(object parameter) => _execute(parameter);
-    public event EventHandler CanExecuteChanged
-    {
-      add { CommandManager.RequerySuggested += value; }
-      remove { CommandManager.RequerySuggested -= value; }
     }
   }
 }

@@ -3,6 +3,7 @@ using System.Xml.Linq;
 using System.Linq;
 using FumesEditor.Models;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace FumesEditor.Helpers
 {
@@ -20,7 +21,6 @@ namespace FumesEditor.Helpers
           throw new Exception("XML root element is null.");
         }
 
-        // If the root is not "Save", try to find "Save" element
         if (root.Name.LocalName != "Save")
         {
           root = root.Element("Save");
@@ -66,7 +66,7 @@ namespace FumesEditor.Helpers
         Run = int.Parse(GetElementValue(element, "Run")),
         GameFinished = bool.Parse(GetElementValue(element, "GameFinished")),
         Biome = GetElementValue(element, "Biome"),
-        BiomeProgress = float.Parse(GetElementValue(element, "BiomeProgress")),
+        BiomeProgress = float.Parse(GetElementValue(element, "BiomeProgress"), CultureInfo.InvariantCulture),
         Missions = element.Element("Missions")?.Elements("Mission").Select(e => e.Value).ToList() ?? new List<string>()
       };
     }
@@ -77,15 +77,15 @@ namespace FumesEditor.Helpers
 
       return new Stats
       {
-        TotalPlayTime = float.Parse(GetElementValue(element, "TotalPlayTime")),
-        TotalRunsTime = float.Parse(GetElementValue(element, "TotalRunsTime")),
-        TotalBossTime = float.Parse(GetElementValue(element, "TotalBossTime")),
-        TotalMileage = float.Parse(GetElementValue(element, "TotalMileage")),
-        FreeRoamMileage = float.Parse(GetElementValue(element, "FreeRoamMileage")),
-        RoadMileage = float.Parse(GetElementValue(element, "RoadMileage")),
-        OffRoadMileage = float.Parse(GetElementValue(element, "OffRoadMileage")),
-        RaceMileage = float.Parse(GetElementValue(element, "RaceMileage")),
-        AirTime = float.Parse(GetElementValue(element, "AirTime")),
+        TotalPlayTime = float.Parse(GetElementValue(element, "TotalPlayTime"), CultureInfo.InvariantCulture),
+        TotalRunsTime = float.Parse(GetElementValue(element, "TotalRunsTime"), CultureInfo.InvariantCulture),
+        TotalBossTime = float.Parse(GetElementValue(element, "TotalBossTime"), CultureInfo.InvariantCulture),
+        TotalMileage = float.Parse(GetElementValue(element, "TotalMileage"), CultureInfo.InvariantCulture),
+        FreeRoamMileage = float.Parse(GetElementValue(element, "FreeRoamMileage"), CultureInfo.InvariantCulture),
+        RoadMileage = float.Parse(GetElementValue(element, "RoadMileage"), CultureInfo.InvariantCulture),
+        OffRoadMileage = float.Parse(GetElementValue(element, "OffRoadMileage"), CultureInfo.InvariantCulture),
+        RaceMileage = float.Parse(GetElementValue(element, "RaceMileage"), CultureInfo.InvariantCulture),
+        AirTime = float.Parse(GetElementValue(element, "AirTime"), CultureInfo.InvariantCulture),
         ScrappersVisits = int.Parse(GetElementValue(element, "ScrappersVisits")),
         FiredBullets = int.Parse(GetElementValue(element, "FiredBullets")),
         ScrappedEnemies = int.Parse(GetElementValue(element, "ScrappedEnemies")),
@@ -105,7 +105,52 @@ namespace FumesEditor.Helpers
         Label = GetElementValue(element, "Label"),
         Body = GetElementValue(element, "Body"),
         BodyColor = DeserializeColor(element.Element("BodyColor")),
-        LampsColor = DeserializeColor(element.Element("LampsColor"))
+        LampsColor = DeserializeColor(element.Element("LampsColor")),
+        TopLayers = DeserializeLayers(element.Element("TopLayers")),
+        FrontLayers = DeserializeLayers(element.Element("FrontLayers")),
+        BackLayers = DeserializeLayers(element.Element("BackLayers")),
+        RightLayers = DeserializeLayers(element.Element("RightLayers")),
+        LeftLayers = DeserializeLayers(element.Element("LeftLayers"))
+      };
+    }
+
+    private static List<Layer> DeserializeLayers(XElement element)
+    {
+      if (element == null) return new List<Layer>();
+
+      return element.Elements("Layer").Select(layerElement => new Layer
+      {
+        Sticker = GetElementValue(layerElement, "Sticker"),
+        Position = DeserializePosition(layerElement.Element("Position")),
+        Scale = DeserializeScale(layerElement.Element("Scale")),
+        Rotation = float.Parse(GetElementValue(layerElement, "Rotation"), CultureInfo.InvariantCulture),
+        Color = DeserializeColor(layerElement.Element("Color")),
+        FlipX = bool.Parse(GetElementValue(layerElement, "FlipX")),
+        FlipY = bool.Parse(GetElementValue(layerElement, "FlipY")),
+        Smooth = bool.Parse(GetElementValue(layerElement, "Smooth")),
+        Mirror = int.Parse(GetElementValue(layerElement, "Mirror"))
+      }).ToList();
+    }
+
+    private static Position DeserializePosition(XElement element)
+    {
+      if (element == null) return new Position();
+
+      return new Position
+      {
+        x = float.Parse(GetElementValue(element, "x"), CultureInfo.InvariantCulture),
+        y = float.Parse(GetElementValue(element, "y"), CultureInfo.InvariantCulture)
+      };
+    }
+
+    private static Scale DeserializeScale(XElement element)
+    {
+      if (element == null) return new Scale();
+
+      return new Scale
+      {
+        x = float.Parse(GetElementValue(element, "x"), CultureInfo.InvariantCulture),
+        y = float.Parse(GetElementValue(element, "y"), CultureInfo.InvariantCulture)
       };
     }
 
@@ -132,10 +177,10 @@ namespace FumesEditor.Helpers
 
       return new Color
       {
-        R = float.Parse(GetElementValue(element, "R")),
-        G = float.Parse(GetElementValue(element, "G")),
-        B = float.Parse(GetElementValue(element, "B")),
-        A = float.Parse(GetElementValue(element, "A"))
+        R = float.Parse(GetElementValue(element, "R"), CultureInfo.InvariantCulture),
+        G = float.Parse(GetElementValue(element, "G"), CultureInfo.InvariantCulture),
+        B = float.Parse(GetElementValue(element, "B"), CultureInfo.InvariantCulture),
+        A = float.Parse(GetElementValue(element, "A"), CultureInfo.InvariantCulture)
       };
     }
   }
