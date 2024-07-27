@@ -1,8 +1,51 @@
 ﻿<UserControl x:Class="FumesEditor.Views.ItemsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Grid>
-        <TextBlock Text="Items and Unlocked Items" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <!-- Add more controls for Items tab -->
-    </Grid>
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:FumesEditor.Views"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="Auto"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+
+		<Grid Grid.Column="0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+			<TextBlock Text="Locked Items" FontWeight="Bold" Margin="10,10,10,5"/>
+			<ListBox Grid.Row="1" ItemsSource="{Binding LockedItems}"
+                     SelectedItem="{Binding SelectedLockedItem}"
+                     Margin="10,0,10,10"/>
+			<Button Grid.Row="2" Content="Unlock All" Command="{Binding UnlockAllCommand}"
+                    Margin="10,0,10,10" Padding="5,2"/>
+		</Grid>
+
+		<StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="10">
+			<Button Content="&gt;" Command="{Binding MoveToUnlockedCommand}"
+                    Margin="0,0,0,10" Padding="5,2"/>
+			<Button Content="&lt;" Command="{Binding MoveToLockedCommand}"
+                    Padding="5,2"/>
+		</StackPanel>
+
+		<Grid Grid.Column="2">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+			<TextBlock Text="Unlocked Items" FontWeight="Bold" Margin="10,10,10,5"/>
+			<ListBox Grid.Row="1" ItemsSource="{Binding UnlockedItems}"
+                     SelectedItem="{Binding SelectedUnlockedItem}"
+                     Margin="10,0,10,10"/>
+			<Button Grid.Row="2" Content="Lock All" Command="{Binding LockAllCommand}"
+                    Margin="10,0,10,10" Padding="5,2"/>
+		</Grid>
+	</Grid>
 </UserControl>

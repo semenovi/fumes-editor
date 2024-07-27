@@ -13,11 +13,6 @@ namespace FumesEditor.ViewModels
     }
   }
 
-  public class ItemsViewModel : BaseViewModel
-  {
-    // Add properties and methods for Items tab
-  }
-
   public class SkinsViewModel : BaseViewModel
   {
     // Add properties and methods for Skins tab

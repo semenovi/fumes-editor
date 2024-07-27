@@ -7,6 +7,7 @@ using FumesEditor.Models;
 using FumesEditor.ViewModels;
 using FumesEditor.Views;
 using System.Windows.Controls;
+using FumesEditor.Helpers; // Add this line
 using System.Xml;
 
 namespace FumesEditor
@@ -31,37 +32,22 @@ namespace FumesEditor
       {
         try
         {
-          XmlSerializer serializer = new XmlSerializer(typeof(SaveModel));
-          using (FileStream fs = new FileStream(openFileDialog.FileName, FileMode.Open))
-          using (XmlReader reader = XmlReader.Create(fs))
-          {
-            _currentSave = (SaveModel)serializer.Deserialize(reader);
-          }
+          string xmlContent = File.ReadAllText(openFileDialog.FileName);
+          _currentSave = SaveDeserializer.Deserialize(xmlContent);
 
           // Update GeneralView
           var generalView = (GeneralView)((TabItem)MainTabControl.Items[0]).Content;
           ((GeneralViewModel)generalView.DataContext).SaveModel = _currentSave;
 
-          MessageBox.Show($"File opened: {openFileDialog.FileName}");
-        }
-        catch (XmlException ex)
-        {
-          MessageBox.Show($"XML Error: {ex.Message}\nLine: {ex.LineNumber}, Position: {ex.LinePosition}");
-        }
-        catch (InvalidOperationException ex)
-        {
-          if (ex.InnerException is XmlException xmlEx)
-          {
-            MessageBox.Show($"XML Error: {xmlEx.Message}\nLine: {xmlEx.LineNumber}, Position: {xmlEx.LinePosition}");
-          }
-          else
-          {
-            MessageBox.Show($"Error opening file: {ex.Message}");
-          }
+          // Update ItemsView
+          var itemsView = (ItemsView)((TabItem)MainTabControl.Items[1]).Content;
+          ((ItemsViewModel)itemsView.DataContext).SaveModel = _currentSave;
+
+          // Removed the message box for successful file opening
         }
         catch (Exception ex)
         {
-          MessageBox.Show($"Error opening file: {ex.Message}");
+          MessageBox.Show($"Error opening file: {ex.Message}\n\nStack Trace: {ex.StackTrace}");
         }
       }
     }

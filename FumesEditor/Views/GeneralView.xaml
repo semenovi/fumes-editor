@@ -10,6 +10,7 @@
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="Auto"/>
 			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="Auto"/>
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
@@ -21,21 +22,22 @@
 		</Grid.RowDefinitions>
 
 		<TextBlock Grid.Row="0" Grid.Column="0" Text="Version:" Margin="5"/>
-		<TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Version}" Margin="5"/>
+		<TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Version}" Margin="5"/>
 
 		<TextBlock Grid.Row="1" Grid.Column="0" Text="Boss:" Margin="5"/>
-		<TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Boss}" Margin="5"/>
+		<TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Boss}" Margin="5"/>
 
 		<TextBlock Grid.Row="2" Grid.Column="0" Text="Run:" Margin="5"/>
-		<TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Run}" Margin="5"/>
+		<TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Run}" Margin="5"/>
 
 		<TextBlock Grid.Row="3" Grid.Column="0" Text="Game Finished:" Margin="5"/>
-		<CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{Binding GameFinished}" Margin="5"/>
+		<CheckBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" IsChecked="{Binding GameFinished}" Margin="5"/>
 
 		<TextBlock Grid.Row="4" Grid.Column="0" Text="Biome:" Margin="5"/>
-		<TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Biome}" Margin="5"/>
+		<TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Biome}" Margin="5"/>
 
 		<TextBlock Grid.Row="5" Grid.Column="0" Text="Biome Progress:" Margin="5"/>
 		<Slider Grid.Row="5" Grid.Column="1" Value="{Binding BiomeProgress}" Minimum="0" Maximum="1" Margin="5"/>
+		<TextBox Grid.Row="5" Grid.Column="2" Text="{Binding BiomeProgress, StringFormat={}{0:P2}}" Width="60" Margin="5"/>
 	</Grid>
 </UserControl>
