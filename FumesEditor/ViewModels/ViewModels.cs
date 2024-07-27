@@ -13,23 +13,6 @@ namespace FumesEditor.ViewModels
     }
   }
 
-  public class GeneralViewModel : BaseViewModel
-  {
-    private SaveModel _saveModel;
-
-    public SaveModel SaveModel
-    {
-      get => _saveModel;
-      set
-      {
-        _saveModel = value;
-        OnPropertyChanged();
-      }
-    }
-
-    // Add properties and methods for General tab
-  }
-
   public class ItemsViewModel : BaseViewModel
   {
     // Add properties and methods for Items tab

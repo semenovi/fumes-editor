@@ -1,15 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
-namespace FumesEditor
+namespace FumesEditor.Models
 {
+  [XmlRoot("Save")]
   public class SaveModel
   {
     public int Version { get; set; }
     public Progress Progress { get; set; }
     public Stats Stats { get; set; }
+    [XmlArrayItem("Item")]
     public List<string> Items { get; set; }
+    [XmlArrayItem("Item")]
     public List<string> UnlockedItems { get; set; }
+    [XmlArrayItem("Skin")]
     public List<CustomSkin> CustomSkins { get; set; }
     public Kit Kit { get; set; }
   }
@@ -30,7 +35,16 @@ namespace FumesEditor
     public float TotalRunsTime { get; set; }
     public float TotalBossTime { get; set; }
     public float TotalMileage { get; set; }
-    // Add other stats as needed
+    public float FreeRoamMileage { get; set; }
+    public float RoadMileage { get; set; }
+    public float OffRoadMileage { get; set; }
+    public float RaceMileage { get; set; }
+    public float AirTime { get; set; }
+    public int ScrappersVisits { get; set; }
+    public int FiredBullets { get; set; }
+    public int ScrappedEnemies { get; set; }
+    public int ScrappedBosses { get; set; }
+    public int Deaths { get; set; }
   }
 
   public class CustomSkin
@@ -39,7 +53,9 @@ namespace FumesEditor
     public string Id { get; set; }
     public string Label { get; set; }
     public string Body { get; set; }
-    // Add other skin properties as needed
+    public Color BodyColor { get; set; }
+    public Color LampsColor { get; set; }
+    // Add other properties as needed
   }
 
   public class Kit

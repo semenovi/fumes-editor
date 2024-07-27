@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using FumesEditor.ViewModels;
 
 namespace FumesEditor.Views
 {
@@ -7,6 +8,7 @@ namespace FumesEditor.Views
     public GeneralView()
     {
       InitializeComponent();
+      DataContext = new GeneralViewModel();
     }
   }
 }

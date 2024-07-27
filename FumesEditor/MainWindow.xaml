@@ -10,7 +10,7 @@
                 <MenuItem Header="Save" Click="SaveMenuItem_Click"/>
             </MenuItem>
         </Menu>
-        <TabControl>
+        <TabControl x:Name="MainTabControl">
             <TabItem Header="General">
                 <views:GeneralView />
             </TabItem>
