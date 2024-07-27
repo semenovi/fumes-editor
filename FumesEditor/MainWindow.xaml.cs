@@ -43,7 +43,9 @@ namespace FumesEditor
           var itemsView = (ItemsView)((TabItem)MainTabControl.Items[1]).Content;
           ((ItemsViewModel)itemsView.DataContext).SaveModel = _currentSave;
 
-          // Removed the message box for successful file opening
+          // Update KitView
+          var kitView = (KitView)((TabItem)MainTabControl.Items[3]).Content;
+          ((KitViewModel)kitView.DataContext).SaveModel = _currentSave;
         }
         catch (Exception ex)
         {

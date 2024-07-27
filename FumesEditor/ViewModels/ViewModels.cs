@@ -17,9 +17,4 @@ namespace FumesEditor.ViewModels
   {
     // Add properties and methods for Skins tab
   }
-
-  public class KitViewModel : BaseViewModel
-  {
-    // Add properties and methods for Kit tab
-  }
 }
