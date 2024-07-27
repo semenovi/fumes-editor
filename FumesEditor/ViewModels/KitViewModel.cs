@@ -3,6 +3,10 @@ using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 using System.Windows.Media;
 using FumesEditor.Models;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
+using FumesEditor.Commands;
+using System.Linq;
 
 namespace FumesEditor.ViewModels
 {
@@ -10,10 +14,15 @@ namespace FumesEditor.ViewModels
   {
     private SaveModel _saveModel;
     private Kit _kit;
+    private Configuration _configuration;
+    private ObservableCollection<string> _modules;
+    private int _selectedModuleIndex;
+    private string _selectedAvailableModule;
 
     public KitViewModel()
     {
       _kit = new Kit();
+      Modules = new ObservableCollection<string>();
     }
 
     public SaveModel SaveModel
@@ -27,6 +36,21 @@ namespace FumesEditor.ViewModels
       }
     }
 
+    public Configuration Configuration
+    {
+      get => _configuration;
+      set
+      {
+        _configuration = value;
+        OnPropertyChanged();
+        OnPropertyChanged(nameof(Bodies));
+        OnPropertyChanged(nameof(Engines));
+        OnPropertyChanged(nameof(Suspensions));
+        OnPropertyChanged(nameof(Skins));
+        OnPropertyChanged(nameof(AvailableModules));
+      }
+    }
+
     public Kit Kit
     {
       get => _kit;
@@ -35,15 +59,14 @@ namespace FumesEditor.ViewModels
         if (_kit != value)
         {
           _kit = value;
+          Modules = new ObservableCollection<string>(_kit.Modules ?? Enumerable.Repeat(string.Empty, 8).ToList());
           OnPropertyChanged();
-          // Обновляем все свойства, связанные с Kit
           OnPropertyChanged(nameof(Body));
           OnPropertyChanged(nameof(Engine));
           OnPropertyChanged(nameof(Suspension));
           OnPropertyChanged(nameof(Skin));
           OnPropertyChanged(nameof(Color));
           OnPropertyChanged(nameof(LicensePlate));
-          OnPropertyChanged(nameof(Modules));
           OnPropertyChanged(nameof(FireGroups));
           OnPropertyChanged(nameof(Red));
           OnPropertyChanged(nameof(Green));
@@ -51,6 +74,12 @@ namespace FumesEditor.ViewModels
         }
       }
     }
+
+    public List<string> Bodies => Configuration?.Bodies ?? new List<string>();
+    public List<string> Engines => Configuration?.Engines ?? new List<string>();
+    public List<string> Suspensions => Configuration?.Suspensions ?? new List<string>();
+    public List<string> Skins => Configuration?.Skins ?? new List<string>();
+    public List<string> AvailableModules => Configuration?.Weapons ?? new List<string>();
 
     public string Body
     {
@@ -173,16 +202,49 @@ namespace FumesEditor.ViewModels
       }
     }
 
-    public List<string> Modules
+    public ObservableCollection<string> Modules
     {
-      get => Kit.Modules;
+      get => _modules;
       set
       {
-        if (Kit.Modules != value)
-        {
-          Kit.Modules = value;
-          OnPropertyChanged();
-        }
+        _modules = value;
+        OnPropertyChanged();
+      }
+    }
+
+    public int SelectedModuleIndex
+    {
+      get => _selectedModuleIndex;
+      set
+      {
+        _selectedModuleIndex = value;
+        OnPropertyChanged();
+        OnPropertyChanged(nameof(CanEditSelectedModule));
+      }
+    }
+
+    public string SelectedAvailableModule
+    {
+      get => _selectedAvailableModule;
+      set
+      {
+        _selectedAvailableModule = value;
+        OnPropertyChanged();
+        OnPropertyChanged(nameof(CanEditSelectedModule));
+      }
+    }
+
+    public bool CanEditSelectedModule => SelectedModuleIndex >= 0 && SelectedModuleIndex < Modules.Count && !string.IsNullOrEmpty(SelectedAvailableModule);
+
+    public ICommand EditModuleCommand => new RelayCommand(EditModule, () => CanEditSelectedModule);
+
+    private void EditModule()
+    {
+      if (CanEditSelectedModule)
+      {
+        Modules[SelectedModuleIndex] = SelectedAvailableModule;
+        Kit.Modules = Modules.ToList();
+        OnPropertyChanged(nameof(Modules));
       }
     }
 

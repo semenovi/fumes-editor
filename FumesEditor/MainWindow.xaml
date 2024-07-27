@@ -9,6 +9,7 @@
                 <MenuItem Header="Open" Click="OpenMenuItem_Click"/>
                 <MenuItem Header="Save" Click="SaveMenuItem_Click"/>
             </MenuItem>
+            <MenuItem Header="Load Multiple Saves" Click="LoadMultipleSaves_Click"/>
         </Menu>
         <TabControl x:Name="MainTabControl">
             <TabItem Header="General">

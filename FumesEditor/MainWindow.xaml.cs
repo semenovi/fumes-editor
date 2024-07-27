@@ -15,10 +15,12 @@ namespace FumesEditor
   public partial class MainWindow : Window
   {
     private SaveModel _currentSave;
+    private Configuration _configuration;
 
     public MainWindow()
     {
       InitializeComponent();
+      LoadConfiguration();
     }
 
     private void OpenMenuItem_Click(object sender, RoutedEventArgs e)
@@ -98,6 +100,45 @@ namespace FumesEditor
         {
           MessageBox.Show($"Error saving file: {ex.Message}\n\nStack Trace: {ex.StackTrace}");
         }
+      }
+    }
+
+    private void LoadConfiguration()
+    {
+      string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.xml");
+      if (File.Exists(configPath))
+      {
+        try
+        {
+          _configuration = Configuration.LoadFromFile(configPath);
+          UpdateViewModelsWithConfiguration();
+        }
+        catch (Exception ex)
+        {
+          MessageBox.Show($"Error loading configuration: {ex.Message}");
+        }
+      }
+    }
+
+    private void UpdateViewModelsWithConfiguration()
+    {
+      var generalView = (GeneralView)((TabItem)MainTabControl.Items[0]).Content;
+      ((GeneralViewModel)generalView.DataContext).Configuration = _configuration;
+
+      var kitView = (KitView)((TabItem)MainTabControl.Items[3]).Content;
+      ((KitViewModel)kitView.DataContext).Configuration = _configuration;
+    }
+
+    private void LoadMultipleSaves_Click(object sender, RoutedEventArgs e)
+    {
+      var loadWindow = new LoadMultipleSavesWindow();
+      if (loadWindow.ShowDialog() == true)
+      {
+        _configuration = Configuration.CreateFromSaves(loadWindow.LoadedSaves);
+        string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.xml");
+        _configuration.SaveToFile(configPath);
+        UpdateViewModelsWithConfiguration();
+        MessageBox.Show("Configuration updated successfully.");
       }
     }
   }

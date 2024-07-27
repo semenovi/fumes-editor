@@ -34,7 +34,10 @@
 		<CheckBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" IsChecked="{Binding GameFinished}" Margin="5"/>
 
 		<TextBlock Grid.Row="4" Grid.Column="0" Text="Biome:" Margin="5"/>
-		<TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Biome}" Margin="5"/>
+		<ComboBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"
+                  ItemsSource="{Binding Biomes}"
+                  SelectedItem="{Binding Biome}"
+                  Margin="5"/>
 
 		<TextBlock Grid.Row="5" Grid.Column="0" Text="Biome Progress:" Margin="5"/>
 		<Slider Grid.Row="5" Grid.Column="1" Value="{Binding BiomeProgress}" Minimum="0" Maximum="1" Margin="5"/>

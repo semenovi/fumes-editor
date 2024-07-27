@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Collections.Generic;
 using FumesEditor.Models;
 
 namespace FumesEditor.ViewModels
@@ -7,6 +8,7 @@ namespace FumesEditor.ViewModels
   public class GeneralViewModel : INotifyPropertyChanged
   {
     private SaveModel _saveModel;
+    private Configuration _configuration;
 
     public SaveModel SaveModel
     {
@@ -23,6 +25,19 @@ namespace FumesEditor.ViewModels
         OnPropertyChanged(nameof(BiomeProgress));
       }
     }
+
+    public Configuration Configuration
+    {
+      get => _configuration;
+      set
+      {
+        _configuration = value;
+        OnPropertyChanged(nameof(Configuration));
+        OnPropertyChanged(nameof(Biomes));
+      }
+    }
+
+    public List<string> Biomes => Configuration?.Biomes ?? new List<string>();
 
     public int Version
     {
