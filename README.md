@@ -2,6 +2,8 @@
 
 in dev now
 
+![FUMES](https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1920430/extras/fumes_b.gif)
+
 FumesEditor is a save game editor for the FUMES. It allows users to modify various aspects of their save files, including general game progress, unlocked items, custom skins, and vehicle configurations (kits).
 
 ## Features
