@@ -6,89 +6,99 @@
              xmlns:viewModels="clr-namespace:FumesEditor.ViewModels"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=viewModels:KitViewModel}">
-	<ScrollViewer VerticalScrollBarVisibility="Auto">
-		<Grid Margin="10">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="Auto"/>
-				<ColumnDefinition Width="*"/>
-			</Grid.ColumnDefinitions>
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="Auto"/>
-			</Grid.RowDefinitions>
-
-			<TextBlock Grid.Row="0" Grid.Column="0" Text="Body:" Margin="0,0,10,5"/>
-			<ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Bodies}" SelectedItem="{Binding Body}" Margin="0,0,0,5"/>
-
-			<TextBlock Grid.Row="1" Grid.Column="0" Text="Engine:" Margin="0,0,10,5"/>
-			<ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Engines}" SelectedItem="{Binding Engine}" Margin="0,0,0,5"/>
-
-			<TextBlock Grid.Row="2" Grid.Column="0" Text="Suspension:" Margin="0,0,10,5"/>
-			<ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Suspensions}" SelectedItem="{Binding Suspension}" Margin="0,0,0,5"/>
-
-			<TextBlock Grid.Row="3" Grid.Column="0" Text="Skin:" Margin="0,0,10,5"/>
-			<ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding Skins}" SelectedItem="{Binding Skin}" Margin="0,0,0,5"/>
-
-			<TextBlock Grid.Row="4" Grid.Column="0" Text="Color:" Margin="0,0,10,5"/>
-			<Grid Grid.Row="4" Grid.Column="1">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="Auto"/>
-				</Grid.ColumnDefinitions>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="Auto"/>
-				</Grid.RowDefinitions>
-
-				<Slider Grid.Row="0" Grid.Column="0" Minimum="0" Maximum="255" Value="{Binding Red}" Margin="0,0,10,5"/>
-				<TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Red}" Margin="0,0,0,5"/>
-
-				<Slider Grid.Row="1" Grid.Column="0" Minimum="0" Maximum="255" Value="{Binding Green}" Margin="0,0,10,5"/>
-				<TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Green}" Margin="0,0,0,5"/>
-
-				<Slider Grid.Row="2" Grid.Column="0" Minimum="0" Maximum="255" Value="{Binding Blue}" Margin="0,0,10,5"/>
-				<TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Blue}" Margin="0,0,0,5"/>
-			</Grid>
-
-			<Rectangle Grid.Row="5" Grid.Column="1" Height="20" Margin="0,5,0,10">
-				<Rectangle.Fill>
-					<SolidColorBrush Color="{Binding Color}"/>
-				</Rectangle.Fill>
-			</Rectangle>
-
-			<TextBlock Grid.Row="6" Grid.Column="0" Text="License Plate:" Margin="0,0,10,5"/>
-			<TextBox Grid.Row="6" Grid.Column="1" Text="{Binding LicensePlate}" Margin="0,0,0,5"/>
-
-			<TextBlock Grid.Row="7" Grid.Column="0" Text="Modules:" Margin="0,0,10,5"/>
-			<ListBox Grid.Row="7" Grid.Column="1" ItemsSource="{Binding Modules}"
-                     SelectedIndex="{Binding SelectedModuleIndex}"
-                     Height="100" Margin="0,0,0,5"/>
-
-			<TextBlock Grid.Row="8" Grid.Column="0" Text="Edit Module:" Margin="0,0,10,5"/>
-			<Grid Grid.Row="8" Grid.Column="1">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="Auto"/>
-				</Grid.ColumnDefinitions>
-				<ComboBox Grid.Column="0" ItemsSource="{Binding AvailableModules}"
-                          SelectedItem="{Binding SelectedAvailableModule}"
-                          Margin="0,0,5,0"/>
-				<Button Grid.Column="1" Content="Apply" Command="{Binding EditModuleCommand}"
-                        Padding="5,2"/>
-			</Grid>
-
-			<TextBlock Grid.Row="9" Grid.Column="0" Text="Fire Groups:" Margin="0,0,10,5"/>
-			<ListBox Grid.Row="9" Grid.Column="1" ItemsSource="{Binding FireGroups}" Margin="0,0,0,5"/>
-
-		</Grid>
-	</ScrollViewer>
+    <TabControl>
+        <TabItem Header="Bodies">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.Column="0" 
+                          ItemsSource="{Binding Bodies}" 
+                          SelectedItem="{Binding SelectedBody}"
+                          DisplayMemberPath="Name"/>
+                <Image Grid.Column="1" 
+                       Source="{Binding BodyImage}" 
+                       Stretch="Uniform"/>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Engines">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.Column="0" 
+                          ItemsSource="{Binding Engines}" 
+                          SelectedItem="{Binding SelectedEngine}"
+                          DisplayMemberPath="Name"/>
+                <Image Grid.Column="1" 
+                       Source="{Binding EngineImage}" 
+                       Stretch="Uniform"/>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Suspensions">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.Column="0" 
+                          ItemsSource="{Binding Bodies}" 
+                          SelectedItem="{Binding SelectedBody}"
+                          DisplayMemberPath="Name"/>
+                <ComboBox Grid.Column="1" 
+                          ItemsSource="{Binding Suspensions}" 
+                          SelectedItem="{Binding SelectedSuspension}"
+                          DisplayMemberPath="Type"/>
+                <Image Grid.Column="2" 
+                       Source="{Binding SuspensionImage}" 
+                       Stretch="Uniform"/>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Skins">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.Column="0" 
+                          ItemsSource="{Binding Skins}" 
+                          SelectedItem="{Binding SelectedSkin}"
+                          DisplayMemberPath="Name"/>
+                <Image Grid.Column="1" 
+                       Source="{Binding SkinImage}" 
+                       Stretch="Uniform"/>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Weapons">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <ComboBox Grid.Row="0" 
+                              ItemsSource="{Binding AvailableModules}"
+                              SelectedItem="{Binding SelectedWeapon}"
+                              DisplayMemberPath="Name"/>
+                    <ListBox Grid.Row="1"
+                             ItemsSource="{Binding Modules}"
+                             SelectedIndex="{Binding SelectedModuleIndex}"/>
+                    <Button Grid.Row="2"
+                            Content="Apply"
+                            Command="{Binding EditModuleCommand}"/>
+                </Grid>
+                <Image Grid.Column="1" 
+                       Source="{Binding WeaponImage}" 
+                       Stretch="Uniform"/>
+            </Grid>
+        </TabItem>
+    </TabControl>
 </UserControl>

@@ -67,11 +67,6 @@
                         <TextBox Text="{Binding SelectedSkin.LampsColor.A, Mode=TwoWay}" Width="50"/>
                     </StackPanel>
                 </Grid>
-
-                <Button Content="Save Changes" 
-                        Command="{Binding SaveChangesCommand}"
-                        Margin="0,10,0,0"
-                        Padding="10,5"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>

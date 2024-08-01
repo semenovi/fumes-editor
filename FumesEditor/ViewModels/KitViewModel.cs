@@ -7,6 +7,8 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using FumesEditor.Commands;
 using System.Linq;
+using System.IO;
+using System.Windows.Media.Imaging;
 
 namespace FumesEditor.ViewModels
 {
@@ -18,6 +20,13 @@ namespace FumesEditor.ViewModels
     private ObservableCollection<string> _modules;
     private int _selectedModuleIndex;
     private string _selectedAvailableModule;
+
+    // New properties for each category
+    private Configuration.BodyConfig _selectedBody;
+    private Configuration.EngineConfig _selectedEngine;
+    private Configuration.SuspensionConfig _selectedSuspension;
+    private Configuration.SkinConfig _selectedSkin;
+    private Configuration.WeaponConfig _selectedWeapon;
 
     public KitViewModel()
     {
@@ -61,146 +70,71 @@ namespace FumesEditor.ViewModels
           _kit = value;
           Modules = new ObservableCollection<string>(_kit.Modules ?? Enumerable.Repeat(string.Empty, 8).ToList());
           OnPropertyChanged();
-          OnPropertyChanged(nameof(Body));
-          OnPropertyChanged(nameof(Engine));
-          OnPropertyChanged(nameof(Suspension));
-          OnPropertyChanged(nameof(Skin));
-          OnPropertyChanged(nameof(Color));
-          OnPropertyChanged(nameof(LicensePlate));
-          OnPropertyChanged(nameof(FireGroups));
-          OnPropertyChanged(nameof(Red));
-          OnPropertyChanged(nameof(Green));
-          OnPropertyChanged(nameof(Blue));
+          UpdateSelectedItems();
         }
       }
     }
 
-    public List<string> Bodies => Configuration?.Bodies ?? new List<string>();
-    public List<string> Engines => Configuration?.Engines ?? new List<string>();
-    public List<string> Suspensions => Configuration?.Suspensions ?? new List<string>();
-    public List<string> Skins => Configuration?.Skins ?? new List<string>();
-    public List<string> AvailableModules => Configuration?.Weapons ?? new List<string>();
-
-    public string Body
+    public Configuration.BodyConfig SelectedBody
     {
-      get => Kit.Body;
+      get => _selectedBody;
       set
       {
-        if (Kit.Body != value)
-        {
-          Kit.Body = value;
-          OnPropertyChanged();
-        }
-      }
-    }
-
-    public string Engine
-    {
-      get => Kit.Engine;
-      set
-      {
-        if (Kit.Engine != value)
-        {
-          Kit.Engine = value;
-          OnPropertyChanged();
-        }
-      }
-    }
-
-    public string Suspension
-    {
-      get => Kit.Suspension;
-      set
-      {
-        if (Kit.Suspension != value)
-        {
-          Kit.Suspension = value;
-          OnPropertyChanged();
-        }
-      }
-    }
-
-    public string Skin
-    {
-      get => Kit.Skin;
-      set
-      {
-        if (Kit.Skin != value)
-        {
-          Kit.Skin = value;
-          OnPropertyChanged();
-        }
-      }
-    }
-
-    public System.Windows.Media.Color Color
-    {
-      get => System.Windows.Media.Color.FromArgb(
-          (byte)(Kit.Color.A * 255),
-          (byte)(Kit.Color.R * 255),
-          (byte)(Kit.Color.G * 255),
-          (byte)(Kit.Color.B * 255));
-      set
-      {
-        Kit.Color = new Models.Color
-        {
-          A = value.A / 255f,
-          R = value.R / 255f,
-          G = value.G / 255f,
-          B = value.B / 255f
-        };
+        _selectedBody = value;
         OnPropertyChanged();
-        OnPropertyChanged(nameof(Red));
-        OnPropertyChanged(nameof(Green));
-        OnPropertyChanged(nameof(Blue));
+        UpdateKitBody();
       }
     }
 
-    public byte Red
+    public Configuration.EngineConfig SelectedEngine
     {
-      get => (byte)(Kit.Color.R * 255);
+      get => _selectedEngine;
       set
       {
-        Kit.Color.R = value / 255f;
+        _selectedEngine = value;
         OnPropertyChanged();
-        OnPropertyChanged(nameof(Color));
+        UpdateKitEngine();
       }
     }
 
-    public byte Green
+    public Configuration.SuspensionConfig SelectedSuspension
     {
-      get => (byte)(Kit.Color.G * 255);
+      get => _selectedSuspension;
       set
       {
-        Kit.Color.G = value / 255f;
+        _selectedSuspension = value;
         OnPropertyChanged();
-        OnPropertyChanged(nameof(Color));
+        UpdateKitSuspension();
       }
     }
 
-    public byte Blue
+    public Configuration.SkinConfig SelectedSkin
     {
-      get => (byte)(Kit.Color.B * 255);
+      get => _selectedSkin;
       set
       {
-        Kit.Color.B = value / 255f;
+        _selectedSkin = value;
         OnPropertyChanged();
-        OnPropertyChanged(nameof(Color));
+        UpdateKitSkin();
       }
     }
 
-    public string LicensePlate
+    public Configuration.WeaponConfig SelectedWeapon
     {
-      get => Kit.LicensePlate;
+      get => _selectedWeapon;
       set
       {
-        if (Kit.LicensePlate != value)
-        {
-          Kit.LicensePlate = value;
-          OnPropertyChanged();
-        }
+        _selectedWeapon = value;
+        OnPropertyChanged();
+        UpdateKitWeapon();
       }
     }
+
+    public List<Configuration.BodyConfig> Bodies => Configuration?.Bodies ?? new List<Configuration.BodyConfig>();
+    public List<Configuration.EngineConfig> Engines => Configuration?.Engines ?? new List<Configuration.EngineConfig>();
+    public List<Configuration.SuspensionConfig> Suspensions => Configuration?.Suspensions ?? new List<Configuration.SuspensionConfig>();
+    public List<Configuration.SkinConfig> Skins => Configuration?.Skins ?? new List<Configuration.SkinConfig>();
+    public List<Configuration.WeaponConfig> Weapons => Configuration?.Weapons ?? new List<Configuration.WeaponConfig>();
 
     public ObservableCollection<string> Modules
     {
@@ -223,18 +157,9 @@ namespace FumesEditor.ViewModels
       }
     }
 
-    public string SelectedAvailableModule
-    {
-      get => _selectedAvailableModule;
-      set
-      {
-        _selectedAvailableModule = value;
-        OnPropertyChanged();
-        OnPropertyChanged(nameof(CanEditSelectedModule));
-      }
-    }
+    public List<Configuration.WeaponConfig> AvailableModules => Configuration?.Weapons ?? new List<Configuration.WeaponConfig>();
 
-    public bool CanEditSelectedModule => SelectedModuleIndex >= 0 && SelectedModuleIndex < Modules.Count && !string.IsNullOrEmpty(SelectedAvailableModule);
+    public bool CanEditSelectedModule => SelectedModuleIndex >= 0 && SelectedModuleIndex < Modules.Count && SelectedWeapon != null;
 
     public ICommand EditModuleCommand => new RelayCommand(EditModule, () => CanEditSelectedModule);
 
@@ -242,30 +167,102 @@ namespace FumesEditor.ViewModels
     {
       if (CanEditSelectedModule)
       {
-        Modules[SelectedModuleIndex] = SelectedAvailableModule;
+        Modules[SelectedModuleIndex] = SelectedWeapon.Name;
         Kit.Modules = Modules.ToList();
         OnPropertyChanged(nameof(Modules));
       }
     }
 
-    public List<int> FireGroups
+    private void UpdateSelectedItems()
     {
-      get => Kit.FireGroups;
-      set
+      SelectedBody = Bodies.FirstOrDefault(b => b.Name == Kit.Body);
+      SelectedEngine = Engines.FirstOrDefault(e => e.Name == Kit.Engine);
+      SelectedSuspension = Suspensions.FirstOrDefault(s => s.Name == Kit.Suspension);
+      SelectedSkin = Skins.FirstOrDefault(s => s.Name == Kit.Skin);
+      // For weapons, we don't update SelectedWeapon here as it's handled differently
+    }
+
+    private void UpdateKitBody()
+    {
+      if (SelectedBody != null)
       {
-        if (Kit.FireGroups != value)
-        {
-          Kit.FireGroups = value;
-          OnPropertyChanged();
-        }
+        Kit.Body = SelectedBody.Name;
       }
     }
+
+    private void UpdateKitEngine()
+    {
+      if (SelectedEngine != null)
+      {
+        Kit.Engine = SelectedEngine.Name;
+      }
+    }
+
+    private void UpdateKitSuspension()
+    {
+      if (SelectedSuspension != null)
+      {
+        Kit.Suspension = SelectedSuspension.Name;
+      }
+    }
+
+    private void UpdateKitSkin()
+    {
+      if (SelectedSkin != null)
+      {
+        Kit.Skin = SelectedSkin.Name;
+      }
+    }
+
+    private void UpdateKitWeapon()
+    {
+      if (SelectedWeapon != null && SelectedModuleIndex >= 0 && SelectedModuleIndex < Modules.Count)
+      {
+        Modules[SelectedModuleIndex] = SelectedWeapon.Name;
+        Kit.Modules = Modules.ToList();
+      }
+    }
+
+    private BitmapImage LoadImage(string imagePath)
+    {
+      if (string.IsNullOrEmpty(imagePath) || !File.Exists(imagePath))
+      {
+        return null;
+      }
+
+      try
+      {
+        BitmapImage image = new BitmapImage();
+        image.BeginInit();
+        image.CacheOption = BitmapCacheOption.OnLoad;
+        image.UriSource = new Uri(imagePath, UriKind.RelativeOrAbsolute);
+        image.EndInit();
+        return image;
+      }
+      catch
+      {
+        return null;
+      }
+    }
+
+    public BitmapImage BodyImage => LoadImage(SelectedBody?.ImagePath);
+    public BitmapImage EngineImage => LoadImage(SelectedEngine?.ImagePath);
+    public BitmapImage SuspensionImage => LoadImage(SelectedSuspension?.ImagePath);
+    public BitmapImage SkinImage => LoadImage(SelectedSkin?.ImagePath);
+    public BitmapImage WeaponImage => LoadImage(SelectedWeapon?.ImagePath);
 
     public event PropertyChangedEventHandler PropertyChanged;
 
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
       PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+      // Update image properties when selections change
+      if (propertyName == nameof(SelectedBody)) OnPropertyChanged(nameof(BodyImage));
+      if (propertyName == nameof(SelectedEngine)) OnPropertyChanged(nameof(EngineImage));
+      if (propertyName == nameof(SelectedSuspension)) OnPropertyChanged(nameof(SuspensionImage));
+      if (propertyName == nameof(SelectedSkin)) OnPropertyChanged(nameof(SkinImage));
+      if (propertyName == nameof(SelectedWeapon)) OnPropertyChanged(nameof(WeaponImage));
     }
   }
 }
