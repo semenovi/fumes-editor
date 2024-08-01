@@ -16,6 +16,7 @@ namespace FumesEditor
   {
     private SaveModel _currentSave;
     private Configuration _configuration;
+    private const string ConfigFileName = "config.xml";
 
     public MainWindow()
     {
@@ -105,19 +106,24 @@ namespace FumesEditor
 
     private void LoadConfiguration()
     {
-      string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.xml");
+      string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConfigFileName);
       if (File.Exists(configPath))
       {
         try
         {
           _configuration = Configuration.LoadFromFile(configPath);
-          UpdateViewModelsWithConfiguration();
         }
         catch (Exception ex)
         {
           MessageBox.Show($"Error loading configuration: {ex.Message}");
+          _configuration = new Configuration();
         }
       }
+      else
+      {
+        _configuration = new Configuration();
+      }
+      UpdateViewModelsWithConfiguration();
     }
 
     private void UpdateViewModelsWithConfiguration()
@@ -134,8 +140,8 @@ namespace FumesEditor
       var loadWindow = new LoadMultipleSavesWindow();
       if (loadWindow.ShowDialog() == true)
       {
-        _configuration = Configuration.CreateFromSaves(loadWindow.LoadedSaves);
-        string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.xml");
+        _configuration.MergeFromSaves(loadWindow.LoadedSaves);
+        string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConfigFileName);
         _configuration.SaveToFile(configPath);
         UpdateViewModelsWithConfiguration();
         MessageBox.Show("Configuration updated successfully.");

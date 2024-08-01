@@ -9,95 +9,121 @@
     <TabControl>
         <TabItem Header="Bodies">
             <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <ComboBox Grid.Column="0" 
+                <ComboBox Grid.Row="0" Grid.Column="0" 
                           ItemsSource="{Binding Bodies}" 
                           SelectedItem="{Binding SelectedBody}"
-                          DisplayMemberPath="Name"/>
-                <Image Grid.Column="1" 
+                          DisplayMemberPath="Name"
+                          Margin="5"/>
+                <Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" 
                        Source="{Binding BodyImage}" 
-                       Stretch="Uniform"/>
+                       Stretch="Uniform"
+                       Margin="5"/>
             </Grid>
         </TabItem>
         <TabItem Header="Engines">
             <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <ComboBox Grid.Column="0" 
+                <ComboBox Grid.Row="0" Grid.Column="0" 
                           ItemsSource="{Binding Engines}" 
                           SelectedItem="{Binding SelectedEngine}"
-                          DisplayMemberPath="Name"/>
-                <Image Grid.Column="1" 
+                          DisplayMemberPath="Name"
+                          Margin="5"/>
+                <Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" 
                        Source="{Binding EngineImage}" 
-                       Stretch="Uniform"/>
+                       Stretch="Uniform"
+                       Margin="5"/>
             </Grid>
         </TabItem>
         <TabItem Header="Suspensions">
             <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <ComboBox Grid.Column="0" 
-                          ItemsSource="{Binding Bodies}" 
-                          SelectedItem="{Binding SelectedBody}"
-                          DisplayMemberPath="Name"/>
-                <ComboBox Grid.Column="1" 
-                          ItemsSource="{Binding Suspensions}" 
-                          SelectedItem="{Binding SelectedSuspension}"
-                          DisplayMemberPath="Type"/>
-                <Image Grid.Column="2" 
-                       Source="{Binding SuspensionImage}" 
-                       Stretch="Uniform"/>
+                <ComboBox Grid.Row="0" Grid.Column="0" 
+                  ItemsSource="{Binding Bodies}" 
+                  SelectedItem="{Binding SelectedBody, Mode=TwoWay}"
+                  DisplayMemberPath="Name"
+                  Margin="5"/>
+                <ComboBox Grid.Row="1" Grid.Column="0" 
+                  ItemsSource="{Binding SuspensionTypes}" 
+                  SelectedItem="{Binding SelectedSuspensionType, Mode=TwoWay}"
+                  Margin="5"/>
+                <Image Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" 
+               Source="{Binding SuspensionImage}" 
+               Stretch="Uniform"
+               Margin="5"/>
             </Grid>
         </TabItem>
         <TabItem Header="Skins">
             <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <ComboBox Grid.Column="0" 
+                <ComboBox Grid.Row="0" Grid.Column="0" 
                           ItemsSource="{Binding Skins}" 
                           SelectedItem="{Binding SelectedSkin}"
-                          DisplayMemberPath="Name"/>
-                <Image Grid.Column="1" 
+                          DisplayMemberPath="Name"
+                          Margin="5"/>
+                <Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" 
                        Source="{Binding SkinImage}" 
-                       Stretch="Uniform"/>
+                       Stretch="Uniform"
+                       Margin="5"/>
             </Grid>
         </TabItem>
         <TabItem Header="Weapons">
             <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <ComboBox Grid.Row="0" 
-                              ItemsSource="{Binding AvailableModules}"
-                              SelectedItem="{Binding SelectedWeapon}"
-                              DisplayMemberPath="Name"/>
-                    <ListBox Grid.Row="1"
-                             ItemsSource="{Binding Modules}"
-                             SelectedIndex="{Binding SelectedModuleIndex}"/>
-                    <Button Grid.Row="2"
-                            Content="Apply"
-                            Command="{Binding EditModuleCommand}"/>
-                </Grid>
-                <Image Grid.Column="1" 
+                <ComboBox Grid.Row="0" Grid.Column="0" 
+                          ItemsSource="{Binding AvailableModules}"
+                          SelectedItem="{Binding SelectedWeapon}"
+                          DisplayMemberPath="Name"
+                          Margin="5"/>
+                <ListBox Grid.Row="1" Grid.Column="0"
+                         ItemsSource="{Binding Modules}"
+                         SelectedIndex="{Binding SelectedModuleIndex}"
+                         Margin="5"/>
+                <Button Grid.Row="2" Grid.Column="0"
+                        Content="Apply"
+                        Command="{Binding EditModuleCommand}"
+                        Margin="5"/>
+                <Image Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" 
                        Source="{Binding WeaponImage}" 
-                       Stretch="Uniform"/>
+                       Stretch="Uniform"
+                       Margin="5"/>
             </Grid>
         </TabItem>
     </TabControl>

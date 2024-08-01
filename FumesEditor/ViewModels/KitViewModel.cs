@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 using System.Windows.Media;
@@ -9,6 +10,7 @@ using FumesEditor.Commands;
 using System.Linq;
 using System.IO;
 using System.Windows.Media.Imaging;
+using System.Diagnostics;
 
 namespace FumesEditor.ViewModels
 {
@@ -21,12 +23,14 @@ namespace FumesEditor.ViewModels
     private int _selectedModuleIndex;
     private string _selectedAvailableModule;
 
-    // New properties for each category
     private Configuration.BodyConfig _selectedBody;
     private Configuration.EngineConfig _selectedEngine;
     private Configuration.SuspensionConfig _selectedSuspension;
     private Configuration.SkinConfig _selectedSkin;
     private Configuration.WeaponConfig _selectedWeapon;
+
+    private List<string> _suspensionTypes;
+    private string _selectedSuspensionType;
 
     public KitViewModel()
     {
@@ -57,6 +61,7 @@ namespace FumesEditor.ViewModels
         OnPropertyChanged(nameof(Suspensions));
         OnPropertyChanged(nameof(Skins));
         OnPropertyChanged(nameof(AvailableModules));
+        UpdateSuspensionTypes();
       }
     }
 
@@ -80,9 +85,14 @@ namespace FumesEditor.ViewModels
       get => _selectedBody;
       set
       {
-        _selectedBody = value;
-        OnPropertyChanged();
-        UpdateKitBody();
+        if (_selectedBody != value)
+        {
+          _selectedBody = value;
+          Debug.WriteLine($"SelectedBody changed to: {_selectedBody?.Name}");
+          OnPropertyChanged();
+          UpdateKitBody();
+          UpdateSuspensionTypes();
+        }
       }
     }
 
@@ -130,11 +140,35 @@ namespace FumesEditor.ViewModels
       }
     }
 
+    public string SelectedSuspensionType
+    {
+      get => _selectedSuspensionType;
+      set
+      {
+        if (_selectedSuspensionType != value)
+        {
+          _selectedSuspensionType = value;
+          OnPropertyChanged();
+          UpdateSelectedSuspension();
+        }
+      }
+    }
+
     public List<Configuration.BodyConfig> Bodies => Configuration?.Bodies ?? new List<Configuration.BodyConfig>();
     public List<Configuration.EngineConfig> Engines => Configuration?.Engines ?? new List<Configuration.EngineConfig>();
     public List<Configuration.SuspensionConfig> Suspensions => Configuration?.Suspensions ?? new List<Configuration.SuspensionConfig>();
     public List<Configuration.SkinConfig> Skins => Configuration?.Skins ?? new List<Configuration.SkinConfig>();
     public List<Configuration.WeaponConfig> Weapons => Configuration?.Weapons ?? new List<Configuration.WeaponConfig>();
+
+    public List<string> SuspensionTypes
+    {
+      get => _suspensionTypes;
+      private set
+      {
+        _suspensionTypes = value;
+        OnPropertyChanged();
+      }
+    }
 
     public ObservableCollection<string> Modules
     {
@@ -182,6 +216,59 @@ namespace FumesEditor.ViewModels
       // For weapons, we don't update SelectedWeapon here as it's handled differently
     }
 
+    private void UpdateSuspensionTypes()
+    {
+      Debug.WriteLine($"Updating SuspensionTypes. SelectedBody: {SelectedBody?.Name}");
+      if (SelectedBody != null && Configuration != null)
+      {
+        SuspensionTypes = Configuration.Suspensions
+            .Where(s => string.Equals(s.Body, SelectedBody.Name, StringComparison.OrdinalIgnoreCase))
+            .Select(s => s.Type)
+            .Distinct()
+            .ToList();
+
+        Debug.WriteLine($"Found {SuspensionTypes.Count} suspension types for {SelectedBody.Name}:");
+        foreach (var type in SuspensionTypes)
+        {
+          Debug.WriteLine($"  - {type}");
+        }
+
+        if (SuspensionTypes.Any())
+        {
+          SelectedSuspensionType = SuspensionTypes.Contains(SelectedSuspension?.Type)
+              ? SelectedSuspension.Type
+              : SuspensionTypes.First();
+        }
+        else
+        {
+          SelectedSuspensionType = null;
+        }
+      }
+      else
+      {
+        SuspensionTypes = new List<string>();
+        SelectedSuspensionType = null;
+      }
+    }
+
+    private void UpdateSelectedSuspension()
+    {
+      if (SelectedBody != null && !string.IsNullOrEmpty(SelectedSuspensionType))
+      {
+        SelectedSuspension = Configuration?.Suspensions.FirstOrDefault(s =>
+            string.Equals(s.Body, SelectedBody.Name, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(s.Type, SelectedSuspensionType, StringComparison.OrdinalIgnoreCase));
+
+        Debug.WriteLine($"SelectedSuspension set to: {SelectedSuspension?.Name}");
+        UpdateKitSuspension();
+      }
+      else
+      {
+        SelectedSuspension = null;
+        Debug.WriteLine("SelectedSuspension set to null");
+      }
+    }
+
     private void UpdateKitBody()
     {
       if (SelectedBody != null)
@@ -200,9 +287,11 @@ namespace FumesEditor.ViewModels
 
     private void UpdateKitSuspension()
     {
+      Debug.WriteLine("UpdateKitSuspension called");
       if (SelectedSuspension != null)
       {
         Kit.Suspension = SelectedSuspension.Name;
+        Debug.WriteLine($"Kit.Suspension set to: {Kit.Suspension}");
       }
     }
 
