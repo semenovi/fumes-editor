@@ -1,33 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Xml.Serialization;
+﻿using System.Collections.Generic;
 
 namespace FumesEditor.Models
 {
-  [XmlRoot("Save")]
   public class SaveModel
   {
-    public int Version { get; set; }
     public Progress Progress { get; set; }
     public Stats Stats { get; set; }
-    [XmlArrayItem("Item")]
-    public List<string> Items { get; set; }
-    [XmlArrayItem("Item")]
-    public List<string> UnlockedItems { get; set; }
-    [XmlArrayItem("Skin")]
-    public List<CustomSkin> CustomSkins { get; set; }
-    public Kit Kit { get; set; }
+    public Config Config { get; set; }
+    public List<Config> Configs { get; set; } = new List<Config>();
+    public List<Item> Items { get; set; } = new List<Item>();
+    public List<string> UnlockedSkins { get; set; } = new List<string>();
+    public List<CustomSkin> CustomSkins { get; set; } = new List<CustomSkin>();
+    public int CargoCount { get; set; }
   }
 
   public class Progress
   {
-    public int Boss { get; set; }
-    public int Run { get; set; }
-    public bool GameFinished { get; set; }
-    public string Biome { get; set; }
-    public float BiomeProgress { get; set; }
-    [XmlArrayItem("Mission")]
-    public List<string> Missions { get; set; }
+    public List<string> Nodes { get; set; } = new List<string>();
+    public List<Anomaly> Anomalies { get; set; } = new List<Anomaly>();
+    public int EndgameBossSeed { get; set; }
+  }
+
+  public class Anomaly
+  {
+    public string Id { get; set; }
+    public int Cargo { get; set; }
   }
 
   public class Stats
@@ -48,31 +45,32 @@ namespace FumesEditor.Models
     public int Deaths { get; set; }
   }
 
+  public class Item
+  {
+    public string Id { get; set; }
+    public List<float> Stats { get; set; } = new List<float>();
+  }
+
   public class CustomSkin
   {
     public int Version { get; set; }
-    public string Id { get; set; }
+    public long Id { get; set; }
     public string Label { get; set; }
     public string Body { get; set; }
     public Color BodyColor { get; set; }
     public Color LampsColor { get; set; }
-    [XmlArrayItem("Layer")]
-    public List<Layer> TopLayers { get; set; }
-    [XmlArrayItem("Layer")]
-    public List<Layer> FrontLayers { get; set; }
-    [XmlArrayItem("Layer")]
-    public List<Layer> BackLayers { get; set; }
-    [XmlArrayItem("Layer")]
-    public List<Layer> RightLayers { get; set; }
-    [XmlArrayItem("Layer")]
-    public List<Layer> LeftLayers { get; set; }
+    public List<SkinLayer> TopLayers { get; set; } = new List<SkinLayer>();
+    public List<SkinLayer> FrontLayers { get; set; } = new List<SkinLayer>();
+    public List<SkinLayer> BackLayers { get; set; } = new List<SkinLayer>();
+    public List<SkinLayer> RightLayers { get; set; } = new List<SkinLayer>();
+    public List<SkinLayer> LeftLayers { get; set; } = new List<SkinLayer>();
   }
 
-  public class Layer
+  public class SkinLayer
   {
     public string Sticker { get; set; }
-    public Position Position { get; set; }
-    public Scale Scale { get; set; }
+    public Vector2 Position { get; set; }
+    public Vector2 Scale { get; set; }
     public float Rotation { get; set; }
     public Color Color { get; set; }
     public bool FlipX { get; set; }
@@ -81,41 +79,9 @@ namespace FumesEditor.Models
     public int Mirror { get; set; }
   }
 
-  public class Position
+  public class Vector2
   {
-    public float x { get; set; }
-    public float y { get; set; }
-  }
-
-  public class Scale
-  {
-    public float x { get; set; }
-    public float y { get; set; }
-  }
-
-  public class Kit
-  {
-    public string Body { get; set; }
-    public string Engine { get; set; }
-    public string Suspension { get; set; }
-    public string Skin { get; set; }
-    public Color Color { get; set; }
-    public string LicensePlate { get; set; }
-    [XmlElement("Modules")]
-    public List<string> Modules { get; set; }
-    [XmlElement("FireGroups")]
-    public List<int> FireGroups { get; set; }
-  }
-
-  public class Color
-  {
-    [XmlElement(ElementName = "R")]
-    public float R { get; set; }
-    [XmlElement(ElementName = "G")]
-    public float G { get; set; }
-    [XmlElement(ElementName = "B")]
-    public float B { get; set; }
-    [XmlElement(ElementName = "A")]
-    public float A { get; set; }
+    public float X { get; set; }
+    public float Y { get; set; }
   }
 }

@@ -1,150 +1,123 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using Microsoft.Win32;
-using System.Xml.Serialization;
-using System.IO;
-using FumesEditor.Models;
-using FumesEditor.ViewModels;
-using FumesEditor.Views;
-using System.Windows.Controls;
 using FumesEditor.Helpers;
-using System.Xml;
+using FumesEditor.ViewModels;
 
 namespace FumesEditor
 {
   public partial class MainWindow : Window
   {
-    private SaveModel _currentSave;
-    private Configuration _configuration;
-    private const string ConfigFileName = "config.xml";
-
     public MainWindow()
     {
       InitializeComponent();
-      LoadConfiguration();
+      LoadPathTextBox.Text = "1.save";
+      SavePathTextBox.Text = "1.save";
     }
 
-    private void OpenMenuItem_Click(object sender, RoutedEventArgs e)
+    private void TitleBar_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
-      OpenFileDialog openFileDialog = new OpenFileDialog
+      if (e.ClickCount == 2)
       {
-        Filter = "Save Files (*.save)|*.save|All files (*.*)|*.*"
-      };
-
-      if (openFileDialog.ShowDialog() == true)
-      {
-        try
-        {
-          string xmlContent = File.ReadAllText(openFileDialog.FileName);
-          _currentSave = SaveDeserializer.Deserialize(xmlContent);
-
-          // Update GeneralView
-          var generalView = (GeneralView)((TabItem)MainTabControl.Items[0]).Content;
-          ((GeneralViewModel)generalView.DataContext).SaveModel = _currentSave;
-
-          // Update ItemsView
-          var itemsView = (ItemsView)((TabItem)MainTabControl.Items[1]).Content;
-          ((ItemsViewModel)itemsView.DataContext).SaveModel = _currentSave;
-
-          // Update SkinsView
-          var skinsView = (SkinsView)((TabItem)MainTabControl.Items[2]).Content;
-          ((SkinsViewModel)skinsView.DataContext).SaveModel = _currentSave;
-
-          // Update KitView
-          var kitView = (KitView)((TabItem)MainTabControl.Items[3]).Content;
-          ((KitViewModel)kitView.DataContext).SaveModel = _currentSave;
-        }
-        catch (Exception ex)
-        {
-          MessageBox.Show($"Error opening file: {ex.Message}\n\nStack Trace: {ex.StackTrace}");
-        }
-      }
-    }
-
-    private void SaveMenuItem_Click(object sender, RoutedEventArgs e)
-    {
-      if (_currentSave == null)
-      {
-        MessageBox.Show("No save file is currently open.");
-        return;
-      }
-
-      SaveFileDialog saveFileDialog = new SaveFileDialog
-      {
-        Filter = "Save Files (*.save)|*.save|All files (*.*)|*.*"
-      };
-
-      if (saveFileDialog.ShowDialog() == true)
-      {
-        try
-        {
-          XmlWriterSettings settings = new XmlWriterSettings
-          {
-            Indent = true,
-            IndentChars = "  ",
-            NewLineChars = "\n",
-            NewLineHandling = NewLineHandling.Replace
-          };
-
-          XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
-          ns.Add("", "");
-
-          using (XmlWriter writer = XmlWriter.Create(saveFileDialog.FileName, settings))
-          {
-            XmlSerializer serializer = new XmlSerializer(typeof(SaveModel));
-            serializer.Serialize(writer, _currentSave, ns);
-          }
-
-          MessageBox.Show($"File saved: {saveFileDialog.FileName}");
-        }
-        catch (Exception ex)
-        {
-          MessageBox.Show($"Error saving file: {ex.Message}\n\nStack Trace: {ex.StackTrace}");
-        }
-      }
-    }
-
-    private void LoadConfiguration()
-    {
-      string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConfigFileName);
-      if (File.Exists(configPath))
-      {
-        try
-        {
-          _configuration = Configuration.LoadFromFile(configPath);
-        }
-        catch (Exception ex)
-        {
-          MessageBox.Show($"Error loading configuration: {ex.Message}");
-          _configuration = new Configuration();
-        }
+        MaximizeRestoreWindow();
       }
       else
       {
-        _configuration = new Configuration();
+        DragMove();
       }
-      UpdateViewModelsWithConfiguration();
     }
 
-    private void UpdateViewModelsWithConfiguration()
+    private void MinimizeButton_Click(object sender, RoutedEventArgs e)
     {
-      var generalView = (GeneralView)((TabItem)MainTabControl.Items[0]).Content;
-      ((GeneralViewModel)generalView.DataContext).Configuration = _configuration;
-
-      var kitView = (KitView)((TabItem)MainTabControl.Items[3]).Content;
-      ((KitViewModel)kitView.DataContext).Configuration = _configuration;
+      WindowState = WindowState.Minimized;
     }
 
-    private void LoadMultipleSaves_Click(object sender, RoutedEventArgs e)
+    private void MaximizeButton_Click(object sender, RoutedEventArgs e)
     {
-      var loadWindow = new LoadMultipleSavesWindow();
-      if (loadWindow.ShowDialog() == true)
+      MaximizeRestoreWindow();
+    }
+
+    private void CloseButton_Click(object sender, RoutedEventArgs e)
+    {
+      Close();
+    }
+
+    private void MaximizeRestoreWindow()
+    {
+      if (WindowState == WindowState.Maximized)
       {
-        _configuration.MergeFromSaves(loadWindow.LoadedSaves);
-        string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConfigFileName);
-        _configuration.SaveToFile(configPath);
-        UpdateViewModelsWithConfiguration();
-        MessageBox.Show("Configuration updated successfully.");
+        WindowState = WindowState.Normal;
+      }
+      else
+      {
+        WindowState = WindowState.Maximized;
+      }
+    }
+
+    private void LoadButton_Click(object sender, RoutedEventArgs e)
+    {
+      string filePath = LoadPathTextBox.Text.Trim();
+      if (string.IsNullOrEmpty(filePath))
+      {
+        System.Windows.MessageBox.Show("please enter a file path to load.", "error", 
+                       System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+        return;
+      }
+
+      if (!File.Exists(filePath))
+      {
+        System.Windows.MessageBox.Show($"file not found: {filePath}", "error", 
+                       System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+        return;
+      }
+
+      try
+      {
+        string xmlContent = File.ReadAllText(filePath);
+        var saveModel = SaveDeserializer.Deserialize(xmlContent);
+        
+        ((KitViewModel)KitView.DataContext).SaveModel = saveModel;
+        
+        Title = $"fumes editor - {Path.GetFileName(filePath)}";
+      }
+      catch (Exception ex)
+      {
+        System.Windows.MessageBox.Show($"error loading file: {ex.Message}", "error", 
+                       System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+      }
+    }
+
+    private void SaveButton_Click(object sender, RoutedEventArgs e)
+    {
+      var viewModel = (KitViewModel)KitView.DataContext;
+      if (viewModel.SaveModel == null)
+      {
+        System.Windows.MessageBox.Show("no save file is open.", "error", 
+                       System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+        return;
+      }
+
+      string filePath = SavePathTextBox.Text.Trim();
+      if (string.IsNullOrEmpty(filePath))
+      {
+        System.Windows.MessageBox.Show("please enter a file path to save.", "error", 
+                       System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+        return;
+      }
+
+      try
+      {
+        string xmlContent = SaveDeserializer.Serialize(viewModel.SaveModel);
+        File.WriteAllText(filePath, xmlContent);
+        
+        System.Windows.MessageBox.Show("file saved successfully!", "success", 
+                       System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+      }
+      catch (Exception ex)
+      {
+        System.Windows.MessageBox.Show($"error saving file: {ex.Message}", "error", 
+                       System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
       }
     }
   }
