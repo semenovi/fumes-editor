@@ -69,10 +69,17 @@
         </Grid>
       </GroupBox>
 
-      <GroupBox Header="component quality" Margin="0,0,0,10">
+      <GroupBox Header="component quality" Margin="0,0,0,10" 
+                Background="#FF3F3F46" BorderBrush="#FF555555" Foreground="#FFEAEAEA">
+        <GroupBox.HeaderTemplate>
+          <DataTemplate>
+            <TextBlock Text="{Binding}" Foreground="#FFEAEAEA" FontWeight="Bold"/>
+          </DataTemplate>
+        </GroupBox.HeaderTemplate>
         <StackPanel Margin="5">
           
-          <Expander Header="body quality" IsExpanded="False" Margin="0,2">
+          <Expander Header="body quality" IsExpanded="False" Margin="0,2" 
+                    Background="#FF2D2D30" Foreground="#FFEAEAEA" BorderBrush="#FF555555">
             <StackPanel Margin="10,5" Visibility="{Binding HasBodyStats, Converter={StaticResource BooleanToVisibilityConverter}}">
               <Grid>
                 <Grid.ColumnDefinitions>
@@ -86,28 +93,29 @@
                   <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 
-                <Label Grid.Row="0" Grid.Column="0" Content="durability:" Width="80"/>
+                <Label Grid.Row="0" Grid.Column="0" Content="durability:" Width="80" Foreground="#FFEAEAEA"/>
                 <Slider Grid.Row="0" Grid.Column="1" Margin="5,0" Minimum="0" Maximum="200" 
                         Value="{Binding BodyStat1}" TickFrequency="10" IsSnapToTickEnabled="True"/>
                 <TextBox Grid.Row="0" Grid.Column="2" Width="60" Margin="5,0" 
-                         Text="{Binding BodyStat1, StringFormat=F1}"/>
+                         Text="{Binding BodyStat1, StringFormat=F1}" Background="#FF2D2D30" Foreground="#FFEAEAEA" BorderBrush="#FF555555"/>
                 
-                <Label Grid.Row="1" Grid.Column="0" Content="weight:" Width="80"/>
+                <Label Grid.Row="1" Grid.Column="0" Content="weight:" Width="80" Foreground="#FFEAEAEA"/>
                 <Slider Grid.Row="1" Grid.Column="1" Margin="5,0" Minimum="0" Maximum="1" 
                         Value="{Binding BodyStat2}" TickFrequency="0.01" IsSnapToTickEnabled="True"/>
                 <TextBox Grid.Row="1" Grid.Column="2" Width="60" Margin="5,0" 
-                         Text="{Binding BodyStat2, StringFormat=F3}"/>
+                         Text="{Binding BodyStat2, StringFormat=F3}" Background="#FF2D2D30" Foreground="#FFEAEAEA" BorderBrush="#FF555555"/>
                 
-                <Label Grid.Row="2" Grid.Column="0" Content="capacity:" Width="80"/>
+                <Label Grid.Row="2" Grid.Column="0" Content="capacity:" Width="80" Foreground="#FFEAEAEA"/>
                 <Slider Grid.Row="2" Grid.Column="1" Margin="5,0" Minimum="0" Maximum="60" 
                         Value="{Binding BodyStat3}" TickFrequency="1" IsSnapToTickEnabled="True"/>
                 <TextBox Grid.Row="2" Grid.Column="2" Width="60" Margin="5,0" 
-                         Text="{Binding BodyStat3, StringFormat=F1}"/>
+                         Text="{Binding BodyStat3, StringFormat=F1}" Background="#FF2D2D30" Foreground="#FFEAEAEA" BorderBrush="#FF555555"/>
               </Grid>
             </StackPanel>
           </Expander>
           
-          <Expander Header="suspension quality" IsExpanded="False" Margin="0,2">
+          <Expander Header="suspension quality" IsExpanded="False" Margin="0,2" 
+                    Background="#FF2D2D30" Foreground="#FFEAEAEA" BorderBrush="#FF555555">
             <StackPanel Margin="10,5" Visibility="{Binding HasSuspensionStats, Converter={StaticResource BooleanToVisibilityConverter}}">
               <Grid>
                 <Grid.ColumnDefinitions>
@@ -123,35 +131,35 @@
                   <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 
-                <Label Grid.Row="0" Grid.Column="0" Content="stat 1:" Width="80"/>
+                <Label Grid.Row="0" Grid.Column="0" Content="durability:" Width="80" Foreground="#FFEAEAEA"/>
                 <Slider Grid.Row="0" Grid.Column="1" Margin="5,0" Minimum="-20" Maximum="100" 
                         Value="{Binding SuspensionStat1}" TickFrequency="1" IsSnapToTickEnabled="True"/>
                 <TextBox Grid.Row="0" Grid.Column="2" Width="60" Margin="5,0" 
-                         Text="{Binding SuspensionStat1, StringFormat=F1}"/>
+                         Text="{Binding SuspensionStat1, StringFormat=F1}" Background="#FF2D2D30" Foreground="#FFEAEAEA" BorderBrush="#FF555555"/>
                 
-                <Label Grid.Row="1" Grid.Column="0" Content="stat 2:" Width="80"/>
+                <Label Grid.Row="1" Grid.Column="0" Content="acceleration:" Width="80" Foreground="#FFEAEAEA"/>
                 <Slider Grid.Row="1" Grid.Column="1" Margin="5,0" Minimum="-20" Maximum="10" 
                         Value="{Binding SuspensionStat2}" TickFrequency="0.1" IsSnapToTickEnabled="True"/>
                 <TextBox Grid.Row="1" Grid.Column="2" Width="60" Margin="5,0" 
-                         Text="{Binding SuspensionStat2, StringFormat=F1}"/>
+                         Text="{Binding SuspensionStat2, StringFormat=F1}" Background="#FF2D2D30" Foreground="#FFEAEAEA" BorderBrush="#FF555555"/>
                 
-                <Label Grid.Row="2" Grid.Column="0" Content="stat 3:" Width="80"/>
+                <Label Grid.Row="2" Grid.Column="0" Content="top speed:" Width="80" Foreground="#FFEAEAEA"/>
                 <Slider Grid.Row="2" Grid.Column="1" Margin="5,0" Minimum="-15" Maximum="10" 
                         Value="{Binding SuspensionStat3}" TickFrequency="0.1" IsSnapToTickEnabled="True"/>
                 <TextBox Grid.Row="2" Grid.Column="2" Width="60" Margin="5,0" 
-                         Text="{Binding SuspensionStat3, StringFormat=F1}"/>
+                         Text="{Binding SuspensionStat3, StringFormat=F1}" Background="#FF2D2D30" Foreground="#FFEAEAEA" BorderBrush="#FF555555"/>
                 
-                <Label Grid.Row="3" Grid.Column="0" Content="stat 4:" Width="80"/>
+                <Label Grid.Row="3" Grid.Column="0" Content="slope grip:" Width="80" Foreground="#FFEAEAEA"/>
                 <Slider Grid.Row="3" Grid.Column="1" Margin="5,0" Minimum="0" Maximum="100" 
                         Value="{Binding SuspensionStat4}" TickFrequency="1" IsSnapToTickEnabled="True"/>
                 <TextBox Grid.Row="3" Grid.Column="2" Width="60" Margin="5,0" 
-                         Text="{Binding SuspensionStat4, StringFormat=F1}"/>
+                         Text="{Binding SuspensionStat4, StringFormat=F1}" Background="#FF2D2D30" Foreground="#FFEAEAEA" BorderBrush="#FF555555"/>
                 
-                <Label Grid.Row="4" Grid.Column="0" Content="stat 5:" Width="80"/>
+                <Label Grid.Row="4" Grid.Column="0" Content="mud grip:" Width="80" Foreground="#FFEAEAEA"/>
                 <Slider Grid.Row="4" Grid.Column="1" Margin="5,0" Minimum="0" Maximum="100" 
                         Value="{Binding SuspensionStat5}" TickFrequency="1" IsSnapToTickEnabled="True"/>
                 <TextBox Grid.Row="4" Grid.Column="2" Width="60" Margin="5,0" 
-                         Text="{Binding SuspensionStat5, StringFormat=F1}"/>
+                         Text="{Binding SuspensionStat5, StringFormat=F1}" Background="#FF2D2D30" Foreground="#FFEAEAEA" BorderBrush="#FF555555"/>
               </Grid>
             </StackPanel>
           </Expander>
@@ -159,30 +167,7 @@
         </StackPanel>
       </GroupBox>
 
-      <GroupBox Header="modules and weapons">
-        <StackPanel Margin="5">
-          <ListBox Height="150" ItemsSource="{Binding ModulesList}">
-            <ListBox.ItemTemplate>
-              <DataTemplate>
-                <TextBlock Text="{Binding Converter={StaticResource ComponentDisplayNameConverter}}"/>
-              </DataTemplate>
-            </ListBox.ItemTemplate>
-          </ListBox>
-          
-          <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-            <ComboBox x:Name="ModuleComboBox" Width="200" Margin="0,0,5,0"
-                      ItemsSource="{Binding Modules}">
-              <ComboBox.ItemTemplate>
-                <DataTemplate>
-                  <TextBlock Text="{Binding Converter={StaticResource ComponentDisplayNameConverter}}"/>
-                </DataTemplate>
-              </ComboBox.ItemTemplate>
-            </ComboBox>
-            <Button Content="add" Click="AddModule_Click" Width="80" Margin="0,0,5,0"/>
-            <Button Content="remove" Click="RemoveModule_Click" Width="80"/>
-          </StackPanel>
-        </StackPanel>
-      </GroupBox>
+
 
     </StackPanel>
   </ScrollViewer>

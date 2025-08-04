@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using FumesEditor.ViewModels;
-using Microsoft.Win32;
 using System.Windows.Media;
 
 namespace FumesEditor.Views
@@ -37,36 +34,6 @@ namespace FumesEditor.Views
           dialog.Color.B / 255f
         );
         ((KitViewModel)DataContext).BodyColor = newColor;
-      }
-    }
-
-    private void AddModule_Click(object sender, RoutedEventArgs e)
-    {
-      var selectedModule = ModuleComboBox.SelectedItem as string;
-      if (!string.IsNullOrEmpty(selectedModule))
-      {
-        var viewModel = (KitViewModel)DataContext;
-        var modules = viewModel.ModulesList.ToList();
-        modules.Add(selectedModule);
-        viewModel.ModulesList = modules;
-      }
-    }
-
-    private void RemoveModule_Click(object sender, RoutedEventArgs e)
-    {
-      if (sender is System.Windows.Controls.Button button)
-      {
-        var stackPanel = button.Parent as System.Windows.Controls.StackPanel;
-        var parentStackPanel = stackPanel?.Parent as System.Windows.Controls.StackPanel;
-        var listBox = parentStackPanel?.Children.OfType<System.Windows.Controls.ListBox>().FirstOrDefault();
-        
-        if (listBox?.SelectedItem is string selectedModule)
-        {
-          var viewModel = (KitViewModel)DataContext;
-          var modules = viewModel.ModulesList.ToList();
-          modules.Remove(selectedModule);
-          viewModel.ModulesList = modules;
-        }
       }
     }
   }

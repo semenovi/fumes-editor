@@ -40,12 +40,7 @@
                     BorderThickness="0" 
                     Click="MinimizeButton_Click"
                     Style="{DynamicResource TitleBarButtonStyle}"/>
-            <Button Content="☐" Width="30" Height="30" 
-                    Background="Transparent" 
-                    Foreground="#FFEAEAEA" 
-                    BorderThickness="0" 
-                    Click="MaximizeButton_Click"
-                    Style="{DynamicResource TitleBarButtonStyle}"/>
+
             <Button Content="✕" Width="30" Height="30" 
                     Background="Transparent" 
                     Foreground="#FFEAEAEA" 

@@ -57,6 +57,11 @@
       <Node>Skirmish1-BizonSteiger</Node>
       <Node>ConvoyHijack2-BizonSteiger</Node>
       <Node>Skirmish3-BizonSteiger</Node>
+      <Node>Skirmish2-BizonSteiger</Node>
+      <Node>BizonSteiger</Node>
+      <Node>SteigerSkirmish2-IndustriusColossus</Node>
+      <Node>SteigerSkirmish3-IndustriusColossus</Node>
+      <Node>SteigerSkirmish1-IndustriusColossus</Node>
     </Progress>
     <Anomalies>
       <Anomaly>
@@ -71,66 +76,103 @@
     <EndgameBossSeed>0</EndgameBossSeed>
   </Progress>
   <Stats>
-    <TotalPlayTime>22085.18</TotalPlayTime>
-    <TotalRunsTime>6859.999</TotalRunsTime>
-    <TotalBossTime>5314.41064</TotalBossTime>
-    <TotalMileage>581941.25</TotalMileage>
-    <FreeRoamMileage>192815.656</FreeRoamMileage>
-    <RoadMileage>27929.96</RoadMileage>
-    <OffRoadMileage>554090.4</OffRoadMileage>
+    <TotalPlayTime>24502.1367</TotalPlayTime>
+    <TotalRunsTime>7523.874</TotalRunsTime>
+    <TotalBossTime>6627.182</TotalBossTime>
+    <TotalMileage>640097.1</TotalMileage>
+    <FreeRoamMileage>204687.2</FreeRoamMileage>
+    <RoadMileage>29495.89</RoadMileage>
+    <OffRoadMileage>610681.1</OffRoadMileage>
     <RaceMileage>86080.5547</RaceMileage>
-    <AirTime>395.7247</AirTime>
-    <ScrappersVisits>45</ScrappersVisits>
-    <FiredBullets>259105</FiredBullets>
-    <ScrappedEnemies>1106</ScrappedEnemies>
-    <ScrappedBosses>39</ScrappedBosses>
-    <Deaths>10</Deaths>
+    <AirTime>445.864868</AirTime>
+    <ScrappersVisits>49</ScrappersVisits>
+    <FiredBullets>293876</FiredBullets>
+    <ScrappedEnemies>1299</ScrappedEnemies>
+    <ScrappedBosses>43</ScrappedBosses>
+    <Deaths>14</Deaths>
   </Stats>
   <Config>
     <Body>
-      <Id>body-unitrack</Id>
+      <Id>body-flakwagon</Id>
       <Stats>
-        <Stat>126.210968</Stat>
-        <Stat>0.5133676</Stat>
-        <Stat>43.4164925</Stat>
+        <Stat>153.783386</Stat>
+        <Stat>0.5688013</Stat>
+        <Stat>47.5162849</Stat>
       </Stats>
     </Body>
     <Engine>
-      <Id>engine-diesel-4</Id>
+      <Id>engine-inline-3</Id>
     </Engine>
     <Suspension>
-      <Id>suspension-unitrack-half-track</Id>
+      <Id>suspension-flakwagon-half-track</Id>
       <Stats>
-        <Stat>29.8128471</Stat>
-        <Stat>-14.519453</Stat>
-        <Stat>5.25705433</Stat>
-        <Stat>43.4457474</Stat>
-        <Stat>63.5641251</Stat>
+        <Stat>26.46855</Stat>
+        <Stat>-14.2641773</Stat>
+        <Stat>5.542248</Stat>
+        <Stat>33.86949</Stat>
+        <Stat>57.8641739</Stat>
       </Stats>
     </Suspension>
     <BodyColor>
-      <R>0.8862745</R>
-      <G>0.453772545</G>
-      <B>0.453772545</B>
+      <R>0.235294119</R>
+      <G>0.1882353</G>
+      <B>0.1254902</B>
       <A>1</A>
     </BodyColor>
-    <Skin>custom-24</Skin>
-    <LicensePlate>5TARBCK</LicensePlate>
+    <Skin>custom-6</Skin>
+    <LicensePlate>BULL628</LicensePlate>
     <Modules>
-      <Id>weapon-mortar-engine</Id>
+      <Id>weapon-rotor</Id>
       <Stats>
-        <Stat>89.3323441</Stat>
-        <Stat>0.980112255</Stat>
-        <Stat>2.90256166</Stat>
-        <Stat>48.93481</Stat>
+        <Stat>71.6381454</Stat>
+        <Stat>25.79298</Stat>
+        <Stat>22.7963657</Stat>
+        <Stat>375.49704</Stat>
         <Stat>0</Stat>
       </Stats>
     </Modules>
     <Modules>
-      <Id>cargo-module-medium</Id>
+      <Id>weapon-charge-thrower</Id>
       <Stats>
-        <Stat>52.54711</Stat>
-        <Stat>61.262558</Stat>
+        <Stat>88.51085</Stat>
+        <Stat>3.3389523</Stat>
+        <Stat>54.13507</Stat>
+        <Stat>138.588989</Stat>
+        <Stat>0</Stat>
+      </Stats>
+    </Modules>
+    <Modules>
+      <Id>weapon-rotor</Id>
+      <Stats>
+        <Stat>70.4104156</Stat>
+        <Stat>26.9944077</Stat>
+        <Stat>21.823349</Stat>
+        <Stat>378.9801</Stat>
+        <Stat>0</Stat>
+      </Stats>
+    </Modules>
+    <Modules>
+      <Id>weapon-charge-thrower</Id>
+      <Stats>
+        <Stat>89.1207047</Stat>
+        <Stat>3.46800017</Stat>
+        <Stat>53.4664268</Stat>
+        <Stat>147.74852</Stat>
+        <Stat>0</Stat>
+      </Stats>
+    </Modules>
+    <Modules>
+      <Id>cargo-module-large</Id>
+      <Stats>
+        <Stat>31.4214439</Stat>
+        <Stat>19.9736443</Stat>
+      </Stats>
+    </Modules>
+    <Modules>
+      <Id>cargo-module-large</Id>
+      <Stats>
+        <Stat>33.4804077</Stat>
+        <Stat>21.8470325</Stat>
       </Stats>
     </Modules>
     <FireGroups>0</FireGroups>
@@ -141,8 +183,8 @@
     <FireGroups>0</FireGroups>
     <FireGroups>0</FireGroups>
     <FireGroups>0</FireGroups>
-    <HiddenParts>VehicleParts/PartBumper</HiddenParts>
-    <HiddenParts>VehicleParts/PartTanks</HiddenParts>
+    <HiddenParts>VehicleParts/PartChromeBars</HiddenParts>
+    <HiddenParts>VehicleParts/PartLadder</HiddenParts>
   </Config>
   <Configs>
     <Config>
@@ -358,26 +400,6 @@
     <Item>
       <Id>weapon-automat</Id>
       <Stats>
-        <Stat>64.29898</Stat>
-        <Stat>10.4809723</Stat>
-        <Stat>54.175354</Stat>
-        <Stat>432.6331</Stat>
-        <Stat>0</Stat>
-      </Stats>
-    </Item>
-    <Item>
-      <Id>weapon-automat</Id>
-      <Stats>
-        <Stat>65.79303</Stat>
-        <Stat>10.7278681</Stat>
-        <Stat>53.7861938</Stat>
-        <Stat>425.172272</Stat>
-        <Stat>0</Stat>
-      </Stats>
-    </Item>
-    <Item>
-      <Id>weapon-automat</Id>
-      <Stats>
         <Stat>63.0836525</Stat>
         <Stat>10.4362459</Stat>
         <Stat>51.840332</Stat>
@@ -392,16 +414,6 @@
         <Stat>10.1141644</Stat>
         <Stat>53.2137566</Stat>
         <Stat>426.665466</Stat>
-        <Stat>0</Stat>
-      </Stats>
-    </Item>
-    <Item>
-      <Id>weapon-automat</Id>
-      <Stats>
-        <Stat>65.27035</Stat>
-        <Stat>10.3788624</Stat>
-        <Stat>52.9513245</Stat>
-        <Stat>444.209778</Stat>
         <Stat>0</Stat>
       </Stats>
     </Item>
@@ -442,6 +454,36 @@
         <Stat>10.3439531</Stat>
         <Stat>50.497036</Stat>
         <Stat>425.871582</Stat>
+        <Stat>0</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>weapon-automat</Id>
+      <Stats>
+        <Stat>65.27035</Stat>
+        <Stat>10.3788624</Stat>
+        <Stat>52.9513245</Stat>
+        <Stat>444.209778</Stat>
+        <Stat>0</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>weapon-automat</Id>
+      <Stats>
+        <Stat>65.79303</Stat>
+        <Stat>10.7278681</Stat>
+        <Stat>53.7861938</Stat>
+        <Stat>425.172272</Stat>
+        <Stat>0</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>weapon-automat</Id>
+      <Stats>
+        <Stat>64.29898</Stat>
+        <Stat>10.4809723</Stat>
+        <Stat>54.175354</Stat>
+        <Stat>432.6331</Stat>
         <Stat>0</Stat>
       </Stats>
     </Item>
@@ -718,7 +760,11 @@
       </Stats>
     </Item>
     <Item>
-      <Id>engine-inline-3</Id>
+      <Id>cargo-module-small</Id>
+      <Stats>
+        <Stat>26.2727623</Stat>
+        <Stat>60.0211678</Stat>
+      </Stats>
     </Item>
     <Item>
       <Id>engine-inline-3</Id>
@@ -1154,6 +1200,16 @@
       </Stats>
     </Item>
     <Item>
+      <Id>weapon-shellgun</Id>
+      <Stats>
+        <Stat>80.4082642</Stat>
+        <Stat>1.01165545</Stat>
+        <Stat>6.462336</Stat>
+        <Stat>205.286743</Stat>
+        <Stat>0</Stat>
+      </Stats>
+    </Item>
+    <Item>
       <Id>suspension-cub-digger</Id>
       <Stats>
         <Stat>10.7181473</Stat>
@@ -1506,6 +1562,13 @@
       <Stats>
         <Stat>44.6100464</Stat>
         <Stat>55.4606476</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>cargo-module-medium</Id>
+      <Stats>
+        <Stat>52.54711</Stat>
+        <Stat>61.262558</Stat>
       </Stats>
     </Item>
     <Item>
@@ -1893,6 +1956,16 @@
         <Stat>6.26248455</Stat>
         <Stat>25.02205</Stat>
         <Stat>230.00885</Stat>
+        <Stat>0</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>weapon-orkan-battery</Id>
+      <Stats>
+        <Stat>85.38422</Stat>
+        <Stat>6.249661</Stat>
+        <Stat>28.4308357</Stat>
+        <Stat>248.9135</Stat>
         <Stat>0</Stat>
       </Stats>
     </Item>
@@ -2829,30 +2902,30 @@
     <Item>
       <Id>weapon-charge-thrower</Id>
       <Stats>
+        <Stat>81.83706</Stat>
+        <Stat>3.03711128</Stat>
+        <Stat>46.55152</Stat>
+        <Stat>100.795471</Stat>
+        <Stat>0</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>weapon-charge-thrower</Id>
+      <Stats>
+        <Stat>80.609314</Stat>
+        <Stat>3.10447121</Stat>
+        <Stat>45.3324127</Stat>
+        <Stat>109.378563</Stat>
+        <Stat>0</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>weapon-charge-thrower</Id>
+      <Stats>
         <Stat>86.08925</Stat>
         <Stat>3.3299377</Stat>
         <Stat>51.10727</Stat>
         <Stat>132.805176</Stat>
-        <Stat>0</Stat>
-      </Stats>
-    </Item>
-    <Item>
-      <Id>weapon-charge-thrower</Id>
-      <Stats>
-        <Stat>89.1207047</Stat>
-        <Stat>3.46800017</Stat>
-        <Stat>53.4664268</Stat>
-        <Stat>147.74852</Stat>
-        <Stat>0</Stat>
-      </Stats>
-    </Item>
-    <Item>
-      <Id>weapon-charge-thrower</Id>
-      <Stats>
-        <Stat>88.51085</Stat>
-        <Stat>3.3389523</Stat>
-        <Stat>54.13507</Stat>
-        <Stat>138.588989</Stat>
         <Stat>0</Stat>
       </Stats>
     </Item>
@@ -2937,6 +3010,16 @@
         <Stat>4.23462534</Stat>
         <Stat>28.313736</Stat>
         <Stat>18.87265</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>suspension-cricket-off-road</Id>
+      <Stats>
+        <Stat>27.7731018</Stat>
+        <Stat>-2.47162056</Stat>
+        <Stat>4.36297226</Stat>
+        <Stat>23.2861214</Stat>
+        <Stat>17.4466457</Stat>
       </Stats>
     </Item>
     <Item>
@@ -3332,7 +3415,7 @@
       <Id>engine-v8-classic</Id>
     </Item>
     <Item>
-      <Id>suspension-tartarus-stock</Id>
+      <Id>suspension-tartatrus-stock</Id>
       <Stats>
         <Stat>0.155017853</Stat>
         <Stat>0.3238492</Stat>
@@ -3342,7 +3425,7 @@
       </Stats>
     </Item>
     <Item>
-      <Id>suspension-tartarus-stock</Id>
+      <Id>suspension-tartatrus-stock</Id>
       <Stats>
         <Stat>1.58682692</Stat>
         <Stat>0.394321531</Stat>
@@ -3352,7 +3435,7 @@
       </Stats>
     </Item>
     <Item>
-      <Id>suspension-tartarus-stock</Id>
+      <Id>suspension-tartatrus-stock</Id>
       <Stats>
         <Stat>1.88712525</Stat>
         <Stat>0.101656146</Stat>
@@ -3362,7 +3445,7 @@
       </Stats>
     </Item>
     <Item>
-      <Id>suspension-tartarus-stock</Id>
+      <Id>suspension-tartatrus-stock</Id>
       <Stats>
         <Stat>1.56525028</Stat>
         <Stat>0.327371418</Stat>
@@ -3532,6 +3615,16 @@
       </Stats>
     </Item>
     <Item>
+      <Id>suspension-polon-rodded</Id>
+      <Stats>
+        <Stat>-3.37824965</Stat>
+        <Stat>4.22794342</Stat>
+        <Stat>-2.24918032</Stat>
+        <Stat>5.09265661</Stat>
+        <Stat>1.099495</Stat>
+      </Stats>
+    </Item>
+    <Item>
       <Id>body-flakwagon</Id>
       <Stats>
         <Stat>146.654175</Stat>
@@ -3585,14 +3678,6 @@
         <Stat>137.600677</Stat>
         <Stat>0.550993443</Stat>
         <Stat>46.30976</Stat>
-      </Stats>
-    </Item>
-    <Item>
-      <Id>body-flakwagon</Id>
-      <Stats>
-        <Stat>153.783386</Stat>
-        <Stat>0.5688013</Stat>
-        <Stat>47.5162849</Stat>
       </Stats>
     </Item>
     <Item>
@@ -3986,20 +4071,6 @@
       </Stats>
     </Item>
     <Item>
-      <Id>cargo-module-large</Id>
-      <Stats>
-        <Stat>31.4214439</Stat>
-        <Stat>19.9736443</Stat>
-      </Stats>
-    </Item>
-    <Item>
-      <Id>cargo-module-large</Id>
-      <Stats>
-        <Stat>33.4804077</Stat>
-        <Stat>21.8470325</Stat>
-      </Stats>
-    </Item>
-    <Item>
       <Id>suspension-tartarus-bullet</Id>
       <Stats>
         <Stat>11.1181583</Stat>
@@ -4022,21 +4093,21 @@
     <Item>
       <Id>suspension-tartarus-bullet</Id>
       <Stats>
-        <Stat>11.1057711</Stat>
-        <Stat>-4.15264225</Stat>
-        <Stat>-7.32482433</Stat>
-        <Stat>32.0874863</Stat>
-        <Stat>42.97</Stat>
-      </Stats>
-    </Item>
-    <Item>
-      <Id>suspension-tartarus-bullet</Id>
-      <Stats>
         <Stat>10.8742638</Stat>
         <Stat>-3.87194014</Stat>
         <Stat>-7.75752831</Stat>
         <Stat>24.8875561</Stat>
         <Stat>31.5176163</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>suspension-tartarus-bullet</Id>
+      <Stats>
+        <Stat>11.1057711</Stat>
+        <Stat>-4.15264225</Stat>
+        <Stat>-7.32482433</Stat>
+        <Stat>32.0874863</Stat>
+        <Stat>42.97</Stat>
       </Stats>
     </Item>
     <Item>
@@ -4150,7 +4221,7 @@
       </Stats>
     </Item>
     <Item>
-      <Id>suspension-tartarus-rodded</Id>
+      <Id>suspension-tartatrus-rodded</Id>
       <Stats>
         <Stat>-2.64877987</Stat>
         <Stat>4.10009956</Stat>
@@ -4160,7 +4231,7 @@
       </Stats>
     </Item>
     <Item>
-      <Id>suspension-tartarus-rodded</Id>
+      <Id>suspension-tartatrus-rodded</Id>
       <Stats>
         <Stat>-3.21662855</Stat>
         <Stat>4.215353</Stat>
@@ -4170,17 +4241,7 @@
       </Stats>
     </Item>
     <Item>
-      <Id>suspension-tartarus-rodded</Id>
-      <Stats>
-        <Stat>-3.39396238</Stat>
-        <Stat>4.503733</Stat>
-        <Stat>-1.16965067</Stat>
-        <Stat>4.629386</Stat>
-        <Stat>1.37201047</Stat>
-      </Stats>
-    </Item>
-    <Item>
-      <Id>suspension-tartarus-rodded</Id>
+      <Id>suspension-tartatrus-rodded</Id>
       <Stats>
         <Stat>-3.12142467</Stat>
         <Stat>4.11931753</Stat>
@@ -4190,17 +4251,17 @@
       </Stats>
     </Item>
     <Item>
-      <Id>suspension-tartarus-monster</Id>
+      <Id>suspension-tartatrus-rodded</Id>
       <Stats>
-        <Stat>42.434166</Stat>
-        <Stat>5.6449337</Stat>
-        <Stat>-14.6002178</Stat>
-        <Stat>60.90282</Stat>
-        <Stat>32.2341156</Stat>
+        <Stat>-3.39396238</Stat>
+        <Stat>4.503733</Stat>
+        <Stat>-1.16965067</Stat>
+        <Stat>4.629386</Stat>
+        <Stat>1.37201047</Stat>
       </Stats>
     </Item>
     <Item>
-      <Id>suspension-tartarus-monster</Id>
+      <Id>suspension-tartatrus-monster</Id>
       <Stats>
         <Stat>36.43749</Stat>
         <Stat>4.24818659</Stat>
@@ -4210,13 +4271,23 @@
       </Stats>
     </Item>
     <Item>
-      <Id>suspension-tartarus-monster</Id>
+      <Id>suspension-tartatrus-monster</Id>
       <Stats>
         <Stat>38.0725975</Stat>
         <Stat>4.403555</Stat>
         <Stat>-15.963131</Stat>
         <Stat>27.8806763</Stat>
         <Stat>5.212674</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>suspension-tartatrus-monster</Id>
+      <Stats>
+        <Stat>42.434166</Stat>
+        <Stat>5.6449337</Stat>
+        <Stat>-14.6002178</Stat>
+        <Stat>60.90282</Stat>
+        <Stat>32.2341156</Stat>
       </Stats>
     </Item>
     <Item>
@@ -4372,41 +4443,11 @@
     <Item>
       <Id>weapon-rotor</Id>
       <Stats>
-        <Stat>70.4104156</Stat>
-        <Stat>26.9944077</Stat>
-        <Stat>21.823349</Stat>
-        <Stat>378.9801</Stat>
-        <Stat>0</Stat>
-      </Stats>
-    </Item>
-    <Item>
-      <Id>weapon-rotor</Id>
-      <Stats>
-        <Stat>71.6381454</Stat>
-        <Stat>25.79298</Stat>
-        <Stat>22.7963657</Stat>
-        <Stat>375.49704</Stat>
-        <Stat>0</Stat>
-      </Stats>
-    </Item>
-    <Item>
-      <Id>weapon-rotor</Id>
-      <Stats>
         <Stat>67.6279449</Stat>
         <Stat>26.1277447</Stat>
         <Stat>20.9701061</Stat>
         <Stat>358.981781</Stat>
         <Stat>0</Stat>
-      </Stats>
-    </Item>
-    <Item>
-      <Id>suspension-tartarus-off-road</Id>
-      <Stats>
-        <Stat>9.812631</Stat>
-        <Stat>-2.14153934</Stat>
-        <Stat>4.00478458</Stat>
-        <Stat>30.4355526</Stat>
-        <Stat>14.443305</Stat>
       </Stats>
     </Item>
     <Item>
@@ -4417,16 +4458,6 @@
         <Stat>-7.87410927</Stat>
         <Stat>32.4268074</Stat>
         <Stat>25.1651573</Stat>
-      </Stats>
-    </Item>
-    <Item>
-      <Id>suspension-tartarus-digger</Id>
-      <Stats>
-        <Stat>13.154891</Stat>
-        <Stat>-2.610787</Stat>
-        <Stat>-3.89036179</Stat>
-        <Stat>64.41305</Stat>
-        <Stat>63.74913</Stat>
       </Stats>
     </Item>
     <Item>
@@ -4447,6 +4478,16 @@
         <Stat>-9.108158</Stat>
         <Stat>36.8091125</Stat>
         <Stat>39.61756</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>suspension-tartarus-digger</Id>
+      <Stats>
+        <Stat>13.154891</Stat>
+        <Stat>-2.610787</Stat>
+        <Stat>-3.89036179</Stat>
+        <Stat>64.41305</Stat>
+        <Stat>63.74913</Stat>
       </Stats>
     </Item>
     <Item>
@@ -4587,6 +4628,14 @@
         <Stat>96.1955</Stat>
         <Stat>0.713683248</Stat>
         <Stat>56.2601624</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>body-griffin</Id>
+      <Stats>
+        <Stat>92.45853</Stat>
+        <Stat>0.712332368</Stat>
+        <Stat>56.32825</Stat>
       </Stats>
     </Item>
     <Item>
@@ -4736,6 +4785,16 @@
       </Stats>
     </Item>
     <Item>
+      <Id>suspension-griffin-monster</Id>
+      <Stats>
+        <Stat>90.21257</Stat>
+        <Stat>4.271891</Stat>
+        <Stat>-16.216135</Stat>
+        <Stat>18.3236141</Stat>
+        <Stat>1.7379303</Stat>
+      </Stats>
+    </Item>
+    <Item>
       <Id>suspension-griffin-digger</Id>
       <Stats>
         <Stat>11.6321735</Stat>
@@ -4753,6 +4812,16 @@
         <Stat>-8.277605</Stat>
         <Stat>34.82383</Stat>
         <Stat>41.4751053</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>suspension-griffin-digger</Id>
+      <Stats>
+        <Stat>12.044858</Stat>
+        <Stat>-4.51448631</Stat>
+        <Stat>-5.746618</Stat>
+        <Stat>49.91358</Stat>
+        <Stat>39.56968</Stat>
       </Stats>
     </Item>
     <Item>
@@ -4776,13 +4845,23 @@
       </Stats>
     </Item>
     <Item>
-      <Id>suspension-tartarus-mudster</Id>
+      <Id>suspension-tartatrus-mudster</Id>
       <Stats>
         <Stat>15.9919376</Stat>
         <Stat>-2.41727757</Stat>
         <Stat>-5.872153</Stat>
         <Stat>4.66217661</Stat>
         <Stat>27.9144249</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>suspension-flakwagon-bullet</Id>
+      <Stats>
+        <Stat>10.1828842</Stat>
+        <Stat>-4.651688</Stat>
+        <Stat>-8.821964</Stat>
+        <Stat>30.2362843</Stat>
+        <Stat>35.5302048</Stat>
       </Stats>
     </Item>
     <Item>
@@ -4846,6 +4925,16 @@
       </Stats>
     </Item>
     <Item>
+      <Id>suspension-warhorse-half-track</Id>
+      <Stats>
+        <Stat>25.449091</Stat>
+        <Stat>-13.9122467</Stat>
+        <Stat>5.421793</Stat>
+        <Stat>31.4216</Stat>
+        <Stat>66.26671</Stat>
+      </Stats>
+    </Item>
+    <Item>
       <Id>suspension-griffin-rodded</Id>
       <Stats>
         <Stat>11.2404575</Stat>
@@ -4897,6 +4986,22 @@
         <Stat>112.04969</Stat>
         <Stat>0.5764443</Stat>
         <Stat>50.1147766</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>body-warthog</Id>
+      <Stats>
+        <Stat>116.035843</Stat>
+        <Stat>0.5831614</Stat>
+        <Stat>51.5793839</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>body-warthog</Id>
+      <Stats>
+        <Stat>111.103874</Stat>
+        <Stat>0.5810439</Stat>
+        <Stat>50.3727226</Stat>
       </Stats>
     </Item>
     <Item>
@@ -5022,16 +5127,6 @@
     <Item>
       <Id>suspension-flakwagon-half-track</Id>
       <Stats>
-        <Stat>26.46855</Stat>
-        <Stat>-14.2641773</Stat>
-        <Stat>5.542248</Stat>
-        <Stat>33.86949</Stat>
-        <Stat>57.8641739</Stat>
-      </Stats>
-    </Item>
-    <Item>
-      <Id>suspension-flakwagon-half-track</Id>
-      <Stats>
         <Stat>25.30974</Stat>
         <Stat>-14.3900661</Stat>
         <Stat>5.06313229</Stat>
@@ -5100,6 +5195,26 @@
       </Stats>
     </Item>
     <Item>
+      <Id>weapon-mortar-engine</Id>
+      <Stats>
+        <Stat>130</Stat>
+        <Stat>0.980112255</Stat>
+        <Stat>2.90256166</Stat>
+        <Stat>48.93481</Stat>
+        <Stat>0</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>weapon-mortar-engine</Id>
+      <Stats>
+        <Stat>85.46814</Stat>
+        <Stat>0.9152366</Stat>
+        <Stat>0.24970606</Stat>
+        <Stat>47.1872444</Stat>
+        <Stat>0</Stat>
+      </Stats>
+    </Item>
+    <Item>
       <Id>suspension-warthog-rodded</Id>
       <Stats>
         <Stat>-2.77306437</Stat>
@@ -5147,6 +5262,222 @@
         <Stat>-8.32169151</Stat>
         <Stat>20.2561722</Stat>
         <Stat>32.61979</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>suspension-unitrack-half-track</Id>
+      <Stats>
+        <Stat>37.5</Stat>
+        <Stat>-10</Stat>
+        <Stat>7.5</Stat>
+        <Stat>100</Stat>
+        <Stat>100</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>engine-diesel-4</Id>
+    </Item>
+    <Item>
+      <Id>body-unitrack</Id>
+      <Stats>
+        <Stat>122.010582</Stat>
+        <Stat>0.508158445</Stat>
+        <Stat>42.2354927</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>body-unitrack</Id>
+      <Stats>
+        <Stat>127.1777</Stat>
+        <Stat>0.512772</Stat>
+        <Stat>42.8840332</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>body-unitrack</Id>
+      <Stats>
+        <Stat>140</Stat>
+        <Stat>0.5375</Stat>
+        <Stat>44.79167</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>body-unitrack</Id>
+      <Stats>
+        <Stat>124.473206</Stat>
+        <Stat>0.504686058</Stat>
+        <Stat>42.1807671</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>suspension-unitrack-monster</Id>
+      <Stats>
+        <Stat>22.0696125</Stat>
+        <Stat>4.283974</Stat>
+        <Stat>-16.043869</Stat>
+        <Stat>5.26439571</Stat>
+        <Stat>8.102041</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>body-bizon</Id>
+      <Stats>
+        <Stat>137.942368</Stat>
+        <Stat>0.520437</Stat>
+        <Stat>54.9186554</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>weapon-pounder</Id>
+      <Stats>
+        <Stat>42.351162</Stat>
+        <Stat>0.3416639</Stat>
+        <Stat>92.81805</Stat>
+        <Stat>815.051941</Stat>
+        <Stat>0</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>suspension-warthog-bullet</Id>
+      <Stats>
+        <Stat>11.39751</Stat>
+        <Stat>-4.358111</Stat>
+        <Stat>-8.059344</Stat>
+        <Stat>41.2943344</Stat>
+        <Stat>24.3126183</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>engine-diesel-60</Id>
+    </Item>
+    <Item>
+      <Id>suspension-bizon-stock</Id>
+      <Stats>
+        <Stat>0.2102505</Stat>
+        <Stat>0.106703259</Stat>
+        <Stat>0.07783508</Stat>
+        <Stat>0.234239832</Stat>
+        <Stat>0.916191936</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>suspension-warthog-truck</Id>
+      <Stats>
+        <Stat>22.3626289</Stat>
+        <Stat>-10.994648</Stat>
+        <Stat>4.149272</Stat>
+        <Stat>7.73045</Stat>
+        <Stat>2.13817668</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>suspension-warthog-truck</Id>
+      <Stats>
+        <Stat>23.2104073</Stat>
+        <Stat>-10.6313229</Stat>
+        <Stat>4.52866745</Stat>
+        <Stat>8.075377</Stat>
+        <Stat>0.7624519</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>suspension-warthog-rover</Id>
+      <Stats>
+        <Stat>21.7218266</Stat>
+        <Stat>8.838154</Stat>
+        <Stat>-7.517448</Stat>
+        <Stat>81.0867844</Stat>
+        <Stat>74.20532</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>suspension-bizon-bullet</Id>
+      <Stats>
+        <Stat>10.0810337</Stat>
+        <Stat>-4.95185328</Stat>
+        <Stat>-7.67720938</Stat>
+        <Stat>23.2696075</Stat>
+        <Stat>31.1669273</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>suspension-unitrack-rodded</Id>
+      <Stats>
+        <Stat>-4.86072063</Stat>
+        <Stat>5.20838547</Stat>
+        <Stat>0.884247065</Stat>
+        <Stat>16.8773422</Stat>
+        <Stat>21.8573971</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>suspension-unitrack-rodded</Id>
+      <Stats>
+        <Stat>-7.573305</Stat>
+        <Stat>4.09864235</Stat>
+        <Stat>-1.61605692</Stat>
+        <Stat>1.281705</Stat>
+        <Stat>4.572288</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>suspension-unitrack-off-road</Id>
+      <Stats>
+        <Stat>6.605964</Stat>
+        <Stat>-2.29277778</Stat>
+        <Stat>4.209548</Stat>
+        <Stat>21.14418</Stat>
+        <Stat>13.954298</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>suspension-bizon-half-track</Id>
+      <Stats>
+        <Stat>35.2859077</Stat>
+        <Stat>-11.6543055</Stat>
+        <Stat>7.1892333</Stat>
+        <Stat>67.4030762</Stat>
+        <Stat>83.01614</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>suspension-tartatrus-off-road</Id>
+      <Stats>
+        <Stat>9.812631</Stat>
+        <Stat>-2.14153934</Stat>
+        <Stat>4.00478458</Stat>
+        <Stat>30.4355526</Stat>
+        <Stat>14.443305</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>suspension-griffin-truck</Id>
+      <Stats>
+        <Stat>56.3317871</Stat>
+        <Stat>-10.8307705</Stat>
+        <Stat>4.66975355</Stat>
+        <Stat>11.1021786</Stat>
+        <Stat>4.26888132</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>suspension-griffin-truck</Id>
+      <Stats>
+        <Stat>57.2948875</Stat>
+        <Stat>-10.5279541</Stat>
+        <Stat>4.401734</Stat>
+        <Stat>5.360189</Stat>
+        <Stat>0.0119028986</Stat>
+      </Stats>
+    </Item>
+    <Item>
+      <Id>suspension-bizon-monster</Id>
+      <Stats>
+        <Stat>17.2334442</Stat>
+        <Stat>4.42775774</Stat>
+        <Stat>-16.1224518</Stat>
+        <Stat>4.679528</Stat>
+        <Stat>8.719703</Stat>
       </Stats>
     </Item>
   </Items>
@@ -5204,7 +5535,7 @@
     <ItemType>weapon-pyreblitz</ItemType>
     <ItemType>suspension-polon-digger</ItemType>
     <ItemType>engine-v8-classic</ItemType>
-    <ItemType>suspension-tartarus-stock</ItemType>
+    <ItemType>suspension-tartatrus-stock</ItemType>
     <ItemType>suspension-cricket-half-track</ItemType>
     <ItemType>suspension-cricket-monster</ItemType>
     <ItemType>suspension-cricket-bullet</ItemType>
@@ -5224,12 +5555,11 @@
     <ItemType>suspension-tartarus-bullet</ItemType>
     <ItemType>suspension-warhorse-stock</ItemType>
     <ItemType>suspension-cricket-truck</ItemType>
-    <ItemType>suspension-tartarus-rodded</ItemType>
-    <ItemType>suspension-tartarus-monster</ItemType>
+    <ItemType>suspension-tartatrus-rodded</ItemType>
+    <ItemType>suspension-tartatrus-monster</ItemType>
     <ItemType>suspension-flakwagon-off-road</ItemType>
     <ItemType>suspension-tartarus-half-track</ItemType>
     <ItemType>weapon-rotor</ItemType>
-    <ItemType>suspension-tartarus-off-road</ItemType>
     <ItemType>suspension-tartarus-digger</ItemType>
     <ItemType>suspension-warhorse-monster</ItemType>
     <ItemType>suspension-warhorse-digger</ItemType>
@@ -5241,7 +5571,7 @@
     <ItemType>suspension-griffin-monster</ItemType>
     <ItemType>suspension-griffin-digger</ItemType>
     <ItemType>suspension-griffin-off-road</ItemType>
-    <ItemType>suspension-tartarus-mudster</ItemType>
+    <ItemType>suspension-tartatrus-mudster</ItemType>
     <ItemType>suspension-flakwagon-bullet</ItemType>
     <ItemType>suspension-warhorse-off-road</ItemType>
     <ItemType>suspension-warhorse-half-track</ItemType>
@@ -5261,10 +5591,25 @@
     <ItemType>suspension-unitrack-stock</ItemType>
     <ItemType>suspension-unitrack-digger</ItemType>
     <ItemType>suspension-unitrack-bullet</ItemType>
-    <ItemType>suspension-unitrack-half-track</ItemType>
-    <ItemType>body-unitrack</ItemType>
-    <ItemType>engine-diesel-4</ItemType>
     <ItemType>suspension-griffin-bullet</ItemType>
+    <ItemType>suspension-unitrack-half-track</ItemType>
+    <ItemType>engine-diesel-4</ItemType>
+    <ItemType>body-unitrack</ItemType>
+    <ItemType>suspension-unitrack-monster</ItemType>
+    <ItemType>body-bizon</ItemType>
+    <ItemType>weapon-pounder</ItemType>
+    <ItemType>suspension-warthog-bullet</ItemType>
+    <ItemType>engine-diesel-60</ItemType>
+    <ItemType>suspension-bizon-stock</ItemType>
+    <ItemType>suspension-warthog-truck</ItemType>
+    <ItemType>suspension-warthog-rover</ItemType>
+    <ItemType>suspension-bizon-bullet</ItemType>
+    <ItemType>suspension-unitrack-rodded</ItemType>
+    <ItemType>suspension-unitrack-off-road</ItemType>
+    <ItemType>suspension-bizon-half-track</ItemType>
+    <ItemType>suspension-tartatrus-off-road</ItemType>
+    <ItemType>suspension-griffin-truck</ItemType>
+    <ItemType>suspension-bizon-monster</ItemType>
   </UnlockedItemTypes>
   <Stickers>
     <Sticker>pattern-19</Sticker>
@@ -5455,6 +5800,9 @@
     <Skin>warthog-stryder</Skin>
     <Skin>cub-provespa</Skin>
     <Skin>griffin-arriv</Skin>
+    <Skin>polon-kepler</Skin>
+    <Skin>bizon-sawed</Skin>
+    <Skin>body-unitrack-kspjk</Skin>
   </UnlockedSkins>
   <CustomSkins>
     <Skin>

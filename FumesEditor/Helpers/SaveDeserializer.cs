@@ -21,17 +21,24 @@ namespace FumesEditor.Helpers
           throw new Exception("Invalid save file format.");
         }
 
+        var typoTracker = new HashSet<string>();
+        
         var save = new SaveModel
         {
           Progress = DeserializeProgress(root.Element("Progress")),
           Stats = DeserializeStats(root.Element("Stats")),
-          Config = DeserializeConfig(root.Element("Config")),
-          Configs = root.Element("Configs")?.Elements("Config").Select(DeserializeConfig).ToList() ?? new List<Config>(),
-          Items = root.Element("Items")?.Elements("Item").Select(DeserializeItem).ToList() ?? new List<Item>(),
+          Config = DeserializeConfig(root.Element("Config"), typoTracker),
+          Configs = root.Element("Configs")?.Elements("Config").Select(c => DeserializeConfig(c, typoTracker)).ToList() ?? new List<Config>(),
+          Items = root.Element("Items")?.Elements("Item").Select(i => DeserializeItem(i, typoTracker)).ToList() ?? new List<Item>(),
           UnlockedSkins = root.Element("UnlockedSkins")?.Elements("Skin").Select(e => e.Value).ToList() ?? new List<string>(),
-          CustomSkins = root.Element("CustomSkins")?.Elements("Skin").Select(DeserializeCustomSkin).ToList() ?? new List<CustomSkin>(),
           CargoCount = int.TryParse(GetElementValue(root, "CargoCount"), out int cargoCount) ? cargoCount : 0
         };
+
+        save.UnlockedItemTypes = root.Element("UnlockedItemTypes")?.Elements("ItemType")
+          .Select(e => TypoHandler.FixTypo(e.Value, typoTracker)).ToList() ?? new List<string>();
+        save.ComponentsWithOriginalTypos = typoTracker;
+
+        save.CustomSkins = root.Element("CustomSkins")?.Elements("Skin").Select(DeserializeCustomSkin).ToList() ?? new List<CustomSkin>();
 
         return save;
       }
@@ -55,21 +62,27 @@ namespace FumesEditor.Helpers
         root.Add(SerializeStats(save.Stats));
 
       if (save.Config != null)
-        root.Add(SerializeConfig(save.Config, "Config"));
+        root.Add(SerializeConfig(save.Config, "Config", save.ComponentsWithOriginalTypos));
 
       if (save.Configs?.Any() == true)
       {
-        root.Add(new XElement("Configs", save.Configs.Select(c => SerializeConfig(c, "Config"))));
+        root.Add(new XElement("Configs", save.Configs.Select(c => SerializeConfig(c, "Config", save.ComponentsWithOriginalTypos))));
       }
 
       if (save.Items?.Any() == true)
       {
-        root.Add(new XElement("Items", save.Items.Select(SerializeItem)));
+        root.Add(new XElement("Items", save.Items.Select(i => SerializeItem(i, save.ComponentsWithOriginalTypos))));
       }
 
       if (save.UnlockedSkins?.Any() == true)
       {
         root.Add(new XElement("UnlockedSkins", save.UnlockedSkins.Select(s => new XElement("Skin", s))));
+      }
+
+      if (save.UnlockedItemTypes?.Any() == true)
+      {
+        root.Add(new XElement("UnlockedItemTypes", 
+          save.UnlockedItemTypes.Select(s => new XElement("ItemType", TypoHandler.RestoreTypoIfOriginal(s, save.ComponentsWithOriginalTypos ?? new HashSet<string>())))));
       }
 
       if (save.CustomSkins?.Any() == true)
@@ -92,19 +105,19 @@ namespace FumesEditor.Helpers
       return parent.Element(elementName)?.Value ?? string.Empty;
     }
 
-    private static Config DeserializeConfig(XElement element)
+    private static Config DeserializeConfig(XElement element, HashSet<string> typoTracker = null)
     {
       if (element == null) return new Config();
 
       return new Config
       {
-        Body = DeserializeComponentWithStats(element.Element("Body")),
-        Engine = DeserializeComponent(element.Element("Engine")),
-        Suspension = DeserializeComponentWithStats(element.Element("Suspension")),
+        Body = DeserializeComponentWithStats(element.Element("Body"), typoTracker),
+        Engine = DeserializeComponent(element.Element("Engine"), typoTracker),
+        Suspension = DeserializeComponentWithStats(element.Element("Suspension"), typoTracker),
         BodyColor = DeserializeColor(element.Element("BodyColor")),
         Skin = GetElementValue(element, "Skin"),
         LicensePlate = GetElementValue(element, "LicensePlate"),
-        Modules = element.Elements("Modules").Select(DeserializeComponentWithStats).ToList(),
+        Modules = element.Elements("Modules").Select(m => DeserializeComponentWithStats(m, typoTracker)).ToList(),
         FireGroups = element.Elements("FireGroups")
           .Select(e => int.TryParse(e.Value, out int fireGroup) ? fireGroup : 0)
           .ToList(),
@@ -112,19 +125,21 @@ namespace FumesEditor.Helpers
       };
     }
 
-    private static Component DeserializeComponent(XElement element)
+    private static Component DeserializeComponent(XElement element, HashSet<string> typoTracker = null)
     {
       if (element == null) return new Component();
-      return new Component { Id = GetElementValue(element, "Id") };
+      var id = GetElementValue(element, "Id");
+      return new Component { Id = TypoHandler.FixTypo(id, typoTracker) };
     }
 
-    private static ComponentWithStats DeserializeComponentWithStats(XElement element)
+    private static ComponentWithStats DeserializeComponentWithStats(XElement element, HashSet<string> typoTracker = null)
     {
       if (element == null) return new ComponentWithStats();
       
+      var id = GetElementValue(element, "Id");
       return new ComponentWithStats
       {
-        Id = GetElementValue(element, "Id"),
+        Id = TypoHandler.FixTypo(id, typoTracker),
         Stats = element.Element("Stats")?.Elements("Stat")
           .Select(e => float.TryParse(e.Value, NumberStyles.Float, CultureInfo.InvariantCulture, out float stat) ? stat : 0f)
           .ToList() ?? new List<float>()
@@ -144,18 +159,18 @@ namespace FumesEditor.Helpers
       };
     }
 
-    private static XElement SerializeConfig(Config config, string elementName)
+    private static XElement SerializeConfig(Config config, string elementName, HashSet<string> originalTypos = null)
     {
       var element = new XElement(elementName);
 
       if (config.Body != null)
-        element.Add(SerializeComponentWithStats(config.Body, "Body"));
+        element.Add(SerializeComponentWithStats(config.Body, "Body", originalTypos));
 
       if (config.Engine != null)
-        element.Add(SerializeComponent(config.Engine, "Engine"));
+        element.Add(SerializeComponent(config.Engine, "Engine", originalTypos));
 
       if (config.Suspension != null)
-        element.Add(SerializeComponentWithStats(config.Suspension, "Suspension"));
+        element.Add(SerializeComponentWithStats(config.Suspension, "Suspension", originalTypos));
 
       if (config.BodyColor != null)
         element.Add(SerializeColor(config.BodyColor, "BodyColor"));
@@ -167,7 +182,7 @@ namespace FumesEditor.Helpers
         element.Add(new XElement("LicensePlate", config.LicensePlate));
 
       foreach (var module in config.Modules ?? new List<ComponentWithStats>())
-        element.Add(SerializeComponentWithStats(module, "Modules"));
+        element.Add(SerializeComponentWithStats(module, "Modules", originalTypos));
 
       foreach (var fireGroup in config.FireGroups ?? new List<int>())
         element.Add(new XElement("FireGroups", fireGroup));
@@ -178,14 +193,16 @@ namespace FumesEditor.Helpers
       return element;
     }
 
-    private static XElement SerializeComponent(Component component, string elementName)
+    private static XElement SerializeComponent(Component component, string elementName, HashSet<string> originalTypos = null)
     {
-      return new XElement(elementName, new XElement("Id", component.Id));
+      var id = TypoHandler.RestoreTypoIfOriginal(component.Id, originalTypos ?? new HashSet<string>());
+      return new XElement(elementName, new XElement("Id", id));
     }
 
-    private static XElement SerializeComponentWithStats(ComponentWithStats component, string elementName)
+    private static XElement SerializeComponentWithStats(ComponentWithStats component, string elementName, HashSet<string> originalTypos = null)
     {
-      var element = new XElement(elementName, new XElement("Id", component.Id));
+      var id = TypoHandler.RestoreTypoIfOriginal(component.Id, originalTypos ?? new HashSet<string>());
+      var element = new XElement(elementName, new XElement("Id", id));
 
       if (component.Stats?.Any() == true)
       {
@@ -265,13 +282,14 @@ namespace FumesEditor.Helpers
       };
     }
 
-    private static Item DeserializeItem(XElement element)
+    private static Item DeserializeItem(XElement element, HashSet<string> typoTracker = null)
     {
       if (element == null) return new Item();
 
+      var id = GetElementValue(element, "Id");
       return new Item
       {
-        Id = GetElementValue(element, "Id"),
+        Id = TypoHandler.FixTypo(id, typoTracker),
         Stats = element.Element("Stats")?.Elements("Stat")
           .Select(e => float.TryParse(e.Value, NumberStyles.Float, CultureInfo.InvariantCulture, out float stat) ? stat : 0f)
           .ToList() ?? new List<float>()
@@ -325,9 +343,10 @@ namespace FumesEditor.Helpers
       );
     }
 
-    private static XElement SerializeItem(Item item)
+    private static XElement SerializeItem(Item item, HashSet<string> originalTypos = null)
     {
-      var element = new XElement("Item", new XElement("Id", item.Id));
+      var id = TypoHandler.RestoreTypoIfOriginal(item.Id, originalTypos ?? new HashSet<string>());
+      var element = new XElement("Item", new XElement("Id", id));
 
       if (item.Stats?.Any() == true)
       {

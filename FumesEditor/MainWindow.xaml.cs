@@ -12,20 +12,13 @@ namespace FumesEditor
     public MainWindow()
     {
       InitializeComponent();
-      LoadPathTextBox.Text = "1.save";
-      SavePathTextBox.Text = "1.save";
+      LoadPathTextBox.Text = "C:\\Users\\user\\AppData\\LocalLow\\FUMES team\\FUMES\\Saves\\FUMES_SAVE_SLOT0_VER4.save";
+      SavePathTextBox.Text = "C:\\Users\\user\\AppData\\LocalLow\\FUMES team\\FUMES\\Saves\\FUMES_SAVE_SLOT0_VER4.save";
     }
 
     private void TitleBar_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
-      if (e.ClickCount == 2)
-      {
-        MaximizeRestoreWindow();
-      }
-      else
-      {
-        DragMove();
-      }
+      DragMove();
     }
 
     private void MinimizeButton_Click(object sender, RoutedEventArgs e)
@@ -33,26 +26,9 @@ namespace FumesEditor
       WindowState = WindowState.Minimized;
     }
 
-    private void MaximizeButton_Click(object sender, RoutedEventArgs e)
-    {
-      MaximizeRestoreWindow();
-    }
-
     private void CloseButton_Click(object sender, RoutedEventArgs e)
     {
       Close();
-    }
-
-    private void MaximizeRestoreWindow()
-    {
-      if (WindowState == WindowState.Maximized)
-      {
-        WindowState = WindowState.Normal;
-      }
-      else
-      {
-        WindowState = WindowState.Maximized;
-      }
     }
 
     private void LoadButton_Click(object sender, RoutedEventArgs e)

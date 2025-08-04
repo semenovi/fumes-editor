@@ -8,7 +8,7 @@ namespace FumesEditor.Models
     public static readonly List<string> Bodies = new List<string>
     {
       "body-cub", "body-jook", "body-caro", "body-polon", "body-tartarus", "body-flakwagon", 
-      "body-warhorse", "body-griffin", "body-warthog", "body-unitrack"
+      "body-warhorse", "body-griffin", "body-warthog", "body-unitrack", "body-cricket", "body-bizon"
     };
 
     public static readonly List<string> Engines = new List<string>
@@ -19,16 +19,138 @@ namespace FumesEditor.Models
 
     public static readonly Dictionary<string, List<string>> SuspensionsByVehicle = new Dictionary<string, List<string>>
     {
-      ["Cricket"] = new List<string> { "stock", "off-road", "monster", "half-track", "bullet", "digger", "rodded", "rover", "truck" },
-      ["Polon"] = new List<string> { "stock", "bullet", "truck", "half-track", "off-road", "monster", "mudster", "rover", "digger", "rallye", "rodded" },
-      ["Caro"] = new List<string> { "stock", "rodded", "monster", "digger", "half-track", "off-road", "bullet" },
-      ["Jook"] = new List<string> { "stock", "digger", "half-track", "off-road", "rodded", "monster", "bullet" },
-      ["Tartarus"] = new List<string> { "stock", "bullet", "rodded", "monster", "off-road", "half-track", "digger", "mudster" },
-      ["Flakwagon"] = new List<string> { "standard", "apc", "digger", "monster", "off-road", "bullet", "half-track" },
-      ["Warhorse"] = new List<string> { "stock", "monster", "digger", "rodded", "off-road", "half-track", "bullet" },
-      ["Griffin"] = new List<string> { "stock", "monster", "digger", "off-road", "rodded", "mud", "bullet", "half-track", "rover" },
-      ["Warthog"] = new List<string> { "stock", "digger", "off-road", "rodded" },
-      ["Unitrack"] = new List<string> { "stock", "digger", "bullet", "half-track" }
+      ["Cricket"] = new List<string> {
+        "stock",
+        "monster",
+        "digger",
+        "off-road",
+        "rodded",
+        "mud",
+        "bullet",
+        "half-track",
+        "rover",
+        "truck"
+      },
+      ["Polon"] = new List<string> {
+        "stock",
+        "monster",
+        "digger",
+        "off-road",
+        "rodded",
+        "mud",
+        "bullet",
+        "half-track",
+        "rover",
+        "truck"
+      },
+      ["Caro"] = new List<string> {
+        "stock",
+        "monster",
+        "digger",
+        "off-road",
+        "rodded",
+        "mud",
+        "bullet",
+        "half-track",
+        "rover",
+        "truck"
+      },
+      ["Jook"] = new List<string> {
+        "stock",
+        "monster",
+        "digger",
+        "off-road",
+        "rodded",
+        "mud",
+        "bullet",
+        "half-track",
+        "rover",
+        "truck"
+      },
+      ["Tartarus"] = new List<string> {
+        "stock",
+        "monster",
+        "digger",
+        "off-road",
+        "rodded",
+        "mud",
+        "bullet",
+        "half-track",
+        "rover",
+        "truck"
+      },
+      ["Flakwagon"] = new List<string> {
+        "stock",
+        "monster",
+        "digger",
+        "off-road",
+        "rodded",
+        "mud",
+        "bullet",
+        "half-track",
+        "rover",
+        "truck"
+      },
+      ["Warhorse"] = new List<string> {
+        "stock",
+        "monster",
+        "digger",
+        "off-road",
+        "rodded",
+        "mud",
+        "bullet",
+        "half-track",
+        "rover",
+        "truck"
+      },
+      ["Griffin"] = new List<string> {
+        "stock",
+        "monster",
+        "digger",
+        "off-road",
+        "rodded",
+        "mud",
+        "bullet",
+        "half-track",
+        "rover",
+        "truck"
+      },
+      ["Warthog"] = new List<string> {
+        "stock",
+        "monster",
+        "digger",
+        "off-road",
+        "rodded",
+        "mud",
+        "bullet",
+        "half-track",
+        "rover",
+        "truck"
+      },
+      ["Unitrack"] = new List<string> {
+        "stock",
+        "monster",
+        "digger",
+        "off-road",
+        "rodded",
+        "mud",
+        "bullet",
+        "half-track",
+        "rover",
+        "truck"
+      },
+      ["Bizon"] = new List<string> {
+        "stock",
+        "monster",
+        "digger",
+        "off-road",
+        "rodded",
+        "mud",
+        "bullet",
+        "half-track",
+        "rover",
+        "truck"
+      },
     };
 
     public static readonly List<string> Weapons = new List<string>
@@ -78,18 +200,29 @@ namespace FumesEditor.Models
       }
       
       if (id.StartsWith("body-"))
-        return id.Replace("body-", "").Replace("-", " ");
+        return char.ToUpper(id[5]) + id.Substring(6).Replace("-", " ");
       
       if (id.StartsWith("engine-"))
-        return id.Replace("engine-", "").Replace("-", " ");
+        return char.ToUpper(id[7]) + id.Substring(8).Replace("-", " ");
       
       if (id.StartsWith("weapon-"))
-        return id.Replace("weapon-", "").Replace("-", " ");
+        return char.ToUpper(id[7]) + id.Substring(8).Replace("-", " ");
       
       if (id.StartsWith("cargo-"))
-        return id.Replace("cargo-", "").Replace("-", " ");
+        return char.ToUpper(id[6]) + id.Substring(7).Replace("-", " ");
 
       return id;
+    }
+
+    public static List<string> GetAllComponents()
+    {
+      var components = new List<string>();
+      components.AddRange(Bodies);
+      components.AddRange(Engines);
+      components.AddRange(GetAllSuspensions());
+      components.AddRange(Weapons);
+      components.AddRange(CargoModules);
+      return components;
     }
   }
 }

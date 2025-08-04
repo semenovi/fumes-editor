@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace FumesEditor.Models
 {
@@ -10,6 +11,8 @@ namespace FumesEditor.Models
     public List<Config> Configs { get; set; } = new List<Config>();
     public List<Item> Items { get; set; } = new List<Item>();
     public List<string> UnlockedSkins { get; set; } = new List<string>();
+    public List<string> UnlockedItemTypes { get; set; } = new List<string>();
+    public HashSet<string> ComponentsWithOriginalTypos { get; set; } = new HashSet<string>();
     public List<CustomSkin> CustomSkins { get; set; } = new List<CustomSkin>();
     public int CargoCount { get; set; }
   }
